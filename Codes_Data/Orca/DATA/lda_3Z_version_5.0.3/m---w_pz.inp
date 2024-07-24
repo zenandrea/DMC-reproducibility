@@ -1,0 +1,85 @@
+#%pal nprocs 4
+#end
+#
+! RKS NORI TightSCF 
+#! moread 
+#! opt anfreq 
+
+#%moinp "h2o_hf.gbw"
+
+%method
+  method dft
+ correlation lda_c_pz 
+# correlation C_PW91
+# ACM 0.5, 0.5, 1.0
+# ScalLDAC 1.0
+# LDAopt C_PWLDA
+end
+
+%basis
+# ccECP from Guangming Wang et al. Journal of Chemical Physics 151, 144110 (2019)
+  NewECP C
+  N_core 2
+  lmax p
+  s 1
+    1 7.76079 52.13345 2
+  p 3
+    1 14.43502   4.00000 1
+    2  8.39889  57.74008 3 
+    3  7.38188 -25.81955 2 
+  end
+  NewECP O 
+  N_core 2
+  lmax p
+  s 1 
+    1 13.65512  85.86406 2
+  p 3
+    1 12.30997   6.000000 1 
+    2 14.76962  73.85984  3
+    3 13.71419 -47.87600  2
+  end
+  NewECP H
+  N_core 0
+  lmax p
+  s 1 
+    1 1.00000000000000 0.000000000000 1
+  p 3 
+    1 21.24359508259891   1.00000000000000 1
+    2 21.24359508259891  21.24359508259891 3
+    3 21.77696655044365 -10.85192405303825 2
+  end
+  GTOName "BASISSET"
+end
+
+%scf 
+#  CNVdiis false
+  CNVsoscf true
+  SOSCFstart 0.01
+  MaxIter 400
+end
+
+%coords
+  CTyp xyz 
+  Charge 0
+  Mult 1 
+  Units angs
+  coords
+# Bonded water-methane complex 8 atoms 
+C       15.58354000000001        9.42959800000002        9.70736900000001
+H       16.35972400000002       10.13081700000000       10.00665900000000
+H       14.66253699999997        9.65943099999998       10.23904000000001
+H       15.41394699999998        9.51196199999999        8.63582899999999
+H       15.89795200000001        8.41618299999998        9.94794800000000
+O        5.00000000000000        6.65576699999999        6.36614799999998
+H        5.80708199999998        6.51278800000001        5.87022600000002
+H        4.46120600000000        5.88724100000001        6.17422599999999
+  end
+end
+
+%output
+  Print[P_MOs] 1
+#  Print[P_Basis] 2
+#  Print[P_ReducedOrbPopMO_L] 1
+end
+
+

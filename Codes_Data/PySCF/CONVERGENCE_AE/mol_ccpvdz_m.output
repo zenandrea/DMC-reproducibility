@@ -1,0 +1,364 @@
+#INFO: **** input file is /home/zen/Dropbox/WORK_UCL/CONVERGENCE_AE/input.py ****
+#! /usr/bin/env python
+
+import os
+os.environ["OMP_NUM_THREADS"] = "10"
+
+import numpy as np
+from numpy import array
+
+import scipy
+
+from pyscf import df, scf, dft
+from pyscf import cc, tools
+
+from pyscf import gto as gto_loc
+
+geos = {}
+
+geos['w'] = '''
+O 5.000000 7.147077 7.650971
+H 4.068066 6.942975 7.563761
+H 5.380237 6.896963 6.807984
+'''
+
+geos['m'] = '''
+C 8.074716 8.896609 8.452975
+H 8.154933 9.264317 9.473808
+H 8.072329 9.738234 7.763478
+H 8.921481 8.249858 8.232870
+H 7.150122 8.334028 8.341744
+'''
+
+geos['close'] = '''
+C 8.074716 8.896609 8.452975
+H 8.154933 9.264317 9.473808
+H 8.072329 9.738234 7.763478
+H 8.921481 8.249858 8.232870
+H 7.150122 8.334028 8.341744
+O 5.000000 7.147077 7.650971
+H 4.068066 6.942975 7.563761
+H 5.380237 6.896963 6.807984
+'''
+
+geos['far'] = '''
+C       15.58354000000001        9.42959800000002        9.70736900000001
+H       16.35972400000002       10.13081700000000       10.00665900000000
+H       14.66253699999997        9.65943099999998       10.23904000000001
+H       15.41394699999998        9.51196199999999        8.63582899999999
+H       15.89795200000001        8.41618299999998        9.94794800000000
+O        5.00000000000000        6.65576699999999        6.36614799999998
+H        5.80708199999998        6.51278800000001        5.87022600000002
+H        4.46120600000000        5.88724100000001        6.17422599999999
+'''
+del geos['far']
+
+
+l_basis = [ f'ccpv{i}z' for i in ['d','t','q','5','6']  ]
+#l_basis = [ f'ccpv{i}z' for i in ['d']  ]
+
+res = {}
+for basis in l_basis:
+    res[basis] = {}
+    for syst, geo in geos.items():
+        mol = gto_loc.Mole()
+        mol.verbose  = 5
+        mol.atom     = geo
+        mol.basis    = basis
+        mol.unit     = 'A'
+        # mol.ecp      = 'ccecp'
+        mol.charge   = 0
+        mol.spin     = 0
+        mol.symmetry = True
+        mol.output   = f'mol_{basis}_{syst}.output'
+        mol.build()
+
+        mf = scf.RHF(mol).density_fit()
+        e_scf = mf.kernel()
+        print(f'RHF = {e_scf}')
+
+        # Molecular Orbitals
+        #mo = mf.mo_coeff
+
+        # CCSD(T) calculation https://pyscf.org/user/cc.html
+        mycc = cc.CCSD(mf).run()
+        print('CCSD total energy', mycc.e_tot)
+        et = mycc.ccsd_t()
+        print('CCSD(T) total energy', mycc.e_tot + et)
+
+        res[basis][syst] = {
+            'e_hf' : mycc.e_hf ,
+            'corr_ccsd' : mycc.e_corr ,
+            'corr_t' : et ,
+            'e_ccsd' : mycc.e_tot ,
+            'e_ccsd(t)' : mycc.e_tot + et }
+
+
+print(res)
+
+import pickle
+#file = open("res.pkl", "w") # "wb" for a binary
+#pickle.dump(res, file)
+
+with open('res.pkl', 'wb') as f:
+    pickle.dump(res, f)
+
+
+
+
+#INFO: ******************** input file end ********************
+
+
+System: uname_result(system='Linux', node='zen-alfe', release='5.4.0-92-generic', version='#103~18.04.2-Ubuntu SMP Wed Dec 1 16:50:36 UTC 2021', machine='x86_64', processor='x86_64')  Threads 10
+Python 3.7.3 (default, Mar 27 2019, 22:11:17) 
+[GCC 7.3.0]
+numpy 1.21.2  scipy 1.7.1
+Date: Mon Mar  7 08:49:19 2022
+PySCF version 1.7.5
+PySCF path  /home/zen/anaconda3/lib/python3.7/site-packages/pyscf
+
+[CONFIG] conf_file None
+[INPUT] verbose = 5
+[INPUT] max_memory = 4000 
+[INPUT] num. atoms = 5
+[INPUT] num. electrons = 10
+[INPUT] charge = 0
+[INPUT] spin (= nelec alpha-beta = 2S) = 0
+[INPUT] symmetry True subgroup None
+[INPUT] Mole.unit = A
+[INPUT]  1 C      8.074716000000   8.896609000000   8.452975000000 AA   15.259001773643  16.812154447341  15.973807687795 Bohr
+[INPUT]  2 H      8.154933000000   9.264317000000   9.473808000000 AA   15.410589934178  17.507021861152  17.902902476713 Bohr
+[INPUT]  3 H      8.072329000000   9.738234000000   7.763478000000 AA   15.254490997384  18.402595196928  14.670847194086 Bohr
+[INPUT]  4 H      8.921481000000   8.249858000000   8.232870000000 AA   16.859155715511  15.589972186552  15.557869519148 Bohr
+[INPUT]  5 H      7.150122000000   8.334028000000   8.341744000000 AA   13.511772337227  15.749030434457  15.763611561234 Bohr
+[INPUT] ---------------- BASIS SET ---------------- 
+[INPUT] l, kappa, [nprim/nctr], expnt,             c_1 c_2 ...
+[INPUT] H
+[INPUT] 0    0    [3    /1   ]  13.01             0.019685
+                                1.962             0.137977
+                                0.4446            0.478148
+[INPUT] 0    0    [1    /1   ]  0.122                1
+[INPUT] 1    0    [1    /1   ]  0.727                1
+[INPUT] C
+[INPUT] 0    0    [8    /2   ]  6665              0.000692 -0.000146
+                                1000              0.005329 -0.001154
+                                228               0.027077 -0.005725
+                                64.71             0.101718 -0.023312
+                                21.06             0.27474 -0.063955
+                                7.495             0.448564 -0.149981
+                                2.797             0.285074 -0.127262
+                                0.5215            0.015204 0.544529
+[INPUT] 0    0    [1    /1   ]  0.1596               1
+[INPUT] 1    0    [3    /1   ]  9.439             0.038109
+                                2.002             0.20948
+                                0.5456            0.508557
+[INPUT] 1    0    [1    /1   ]  0.1517               1
+[INPUT] 2    0    [1    /1   ]  0.55                 1
+
+nuclear repulsion = 13.4600863490777
+point group symmetry = C3v, use subgroup Cs
+num. orbitals of irrep A' = 23
+num. orbitals of irrep A" = 11
+number of shells = 17
+number of NR pGTOs = 54
+number of NR cGTOs = 34
+basis = ccpvdz
+ecp = {}
+CPU time:        21.67
+
+
+******** <class 'pyscf.df.df_jk.density_fit.<locals>.DFHF'> ********
+method = DFHF-SymAdaptedRHF-RHF
+initial guess = minao
+damping factor = 0
+level_shift factor = 0
+DIIS = <class 'pyscf.scf.diis.CDIIS'>
+diis_start_cycle = 1
+diis_space = 8
+SCF conv_tol = 1e-09
+SCF conv_tol_grad = None
+SCF max_cycles = 50
+direct_scf = True
+direct_scf_tol = 1e-13
+chkfile to save SCF result = /home/zen/Dropbox/WORK_UCL/CONVERGENCE_AE/tmp0iae2eiu
+max_memory 4000 MB (current use 108 MB)
+Freeze 0 electrons in irreps []
+    10 free electrons in irreps A' A"
+Set gradient conv threshold to 3.16228e-05
+******** <class 'pyscf.df.df.DF'> ********
+auxbasis = None
+max_memory = 4000
+_cderi_to_save = /home/zen/Dropbox/WORK_UCL/CONVERGENCE_AE/tmpqd1_kpk0
+Default auxbasis cc-pvdz-jkfit is used for H ccpvdz
+Default auxbasis cc-pvdz-jkfit is used for C ccpvdz
+num shells = 60, num cGTOs = 162
+size of aux basis 162
+int3c2e [1/1], AO [0:17], nrow = 595
+    CPU time for cholesky_eri      0.06 sec, wall time      0.00 sec
+    CPU time for df vj and vk      0.16 sec, wall time      0.01 sec
+E1 = -78.79103585457494  E_coul = 25.295084484046097
+init E= -40.0358650214511
+cond(S) = 213.2580758184298
+    CPU time for initialize scf      0.52 sec, wall time      0.03 sec
+HOMO (A') = -0.473513978742026  LUMO (A') = 0.132819371000619
+irrep_nelec = [8, 2]
+A' nocc = 4  HOMO = -0.473513978742026  LUMO = 0.132819371000619
+   mo_energy = [-11.33011989  -1.24517488  -0.47351422  -0.47351398   0.13281937
+   0.22781734   0.22781742   0.5487775    0.54877759   0.80483902
+   0.80483916   0.82763734   1.06682787   1.19964497   1.63046458
+   1.82767075   1.82767092   2.14853796   2.14853869   2.47733713
+   2.67234536   2.71840087   2.71840122]
+A" nocc = 1  HOMO = -0.473514053836482  LUMO = 0.227817383854866
+   mo_energy = [-0.47351405  0.22781738  0.5487775   0.8048391   1.06682786  1.63046461
+  1.63046478  1.82767101  2.14853797  2.47733717  2.71840117]
+    CPU time for df vj and vk      0.02 sec, wall time      0.00 sec
+E1 = -79.67064353368836  E_coul = 26.01949466439555
+cycle= 1 E= -40.1910625202151  delta_E= -0.155  |g|= 0.147  |ddm|= 1.57
+    CPU time for cycle= 1      0.10 sec, wall time      0.01 sec
+HOMO (A') = -0.547824566392362  LUMO (A') = 0.188153657659923
+irrep_nelec = [8, 2]
+A' nocc = 4  HOMO = -0.547824566392362  LUMO = 0.188153657659923
+   mo_energy = [-11.22007491  -0.95516129  -0.54782477  -0.54782457   0.18815366
+   0.26944738   0.2694474    0.58406831   0.58406841   0.88296954
+   0.88296969   0.92350574   1.12157144   1.25098237   1.67719542
+   1.88586355   1.88586372   2.20361431   2.20361505   2.53733866
+   2.74221944   2.78946813   2.7894685 ]
+A" nocc = 1  HOMO = -0.547824633573556  LUMO = 0.269447403281783
+   mo_energy = [-0.54782463  0.2694474   0.58406831  0.88296962  1.12157143  1.67719546
+  1.67719563  1.88586381  2.20361432  2.5373387   2.78946845]
+    CPU time for df vj and vk      0.02 sec, wall time      0.00 sec
+E1 = -79.75120304552632  E_coul = 26.092920653255067
+cycle= 2 E= -40.1981960431935  delta_E= -0.00713  |g|= 0.0351  |ddm|= 0.115
+    CPU time for cycle= 2      0.09 sec, wall time      0.00 sec
+HOMO (A') = -0.540715869604947  LUMO (A') = 0.193841024850568
+irrep_nelec = [8, 2]
+A' nocc = 4  HOMO = -0.540715869604947  LUMO = 0.193841024850568
+   mo_energy = [-11.20809026  -0.94044013  -0.54071608  -0.54071587   0.19384102
+   0.27500202   0.27500204   0.59081406   0.59081417   0.89259878
+   0.89259894   0.93793179   1.13414631   1.25905568   1.68921128
+   1.89750851   1.89750868   2.21519984   2.21520058   2.54913115
+   2.75725752   2.80213033   2.80213069]
+A" nocc = 1  HOMO = -0.54071594012594  LUMO = 0.275002043800657
+   mo_energy = [-0.54071594  0.27500204  0.59081407  0.89259886  1.13414629  1.68921132
+  1.68921149  1.89750877  2.21519985  2.54913119  2.80213064]
+    CPU time for df vj and vk      0.01 sec, wall time      0.00 sec
+E1 = -79.73263700927923  E_coul = 26.07386191102393
+cycle= 3 E= -40.1986887491776  delta_E= -0.000493  |g|= 0.00525  |ddm|= 0.0354
+    CPU time for cycle= 3      0.09 sec, wall time      0.00 sec
+HOMO (A') = -0.543255017347582  LUMO (A') = 0.193130672342414
+irrep_nelec = [8, 2]
+A' nocc = 4  HOMO = -0.543255017347582  LUMO = 0.193130672342414
+   mo_energy = [-11.21658863  -0.94310471  -0.54325523  -0.54325502   0.19313067
+   0.27420699   0.27420701   0.58936441   0.58936451   0.89001078
+   0.89001094   0.93598044   1.13181216   1.257264     1.68780439
+   1.89549624   1.89549642   2.21336657   2.21336732   2.54706336
+   2.75501424   2.79910613   2.79910649]
+A" nocc = 1  HOMO = -0.543255088325238  LUMO = 0.274207009260621
+   mo_energy = [-0.54325509  0.27420701  0.58936441  0.89001086  1.13181214  1.68780442
+  1.68780459  1.89549651  2.21336659  2.5470634   2.79910644]
+    CPU time for df vj and vk      0.01 sec, wall time      0.00 sec
+E1 = -79.7457413877047  E_coul = 26.086959699948764
+cycle= 4 E= -40.1986953386782  delta_E= -6.59e-06  |g|= 0.00106  |ddm|= 0.0047
+    CPU time for cycle= 4      0.09 sec, wall time      0.00 sec
+HOMO (A') = -0.543021621981487  LUMO (A') = 0.193172373218863
+irrep_nelec = [8, 2]
+A' nocc = 4  HOMO = -0.543021621981487  LUMO = 0.193172373218863
+   mo_energy = [-11.2151104   -0.94276546  -0.54302183  -0.54302162   0.19317237
+   0.27428322   0.27428324   0.58941725   0.58941735   0.8902907
+   0.89029086   0.93605879   1.13203188   1.25737707   1.68785119
+   1.89564167   1.89564185   2.21349175   2.2134925    2.54721447
+   2.75522885   2.79947324   2.79947361]
+A" nocc = 1  HOMO = -0.543021693054386  LUMO = 0.274283242643223
+   mo_energy = [-0.54302169  0.27428324  0.58941725  0.89029079  1.13203186  1.68785123
+  1.6878514   1.89564194  2.21349176  2.54721451  2.79947355]
+    CPU time for df vj and vk      0.01 sec, wall time      0.00 sec
+E1 = -79.74275848728905  E_coul = 26.083976283453893
+cycle= 5 E= -40.1986958547574  delta_E= -5.16e-07  |g|= 0.00016  |ddm|= 0.00203
+    CPU time for cycle= 5      0.09 sec, wall time      0.00 sec
+HOMO (A') = -0.543070182281791  LUMO (A') = 0.19315210176505
+irrep_nelec = [8, 2]
+A' nocc = 4  HOMO = -0.543070182281791  LUMO = 0.19315210176505
+   mo_energy = [-11.2152687   -0.94283584  -0.54307039  -0.54307018   0.1931521
+   0.27427121   0.27427123   0.58939643   0.58939653   0.89025162
+   0.89025178   0.93603831   1.13199902   1.25734169   1.68783346
+   1.89561413   1.8956143    2.21346582   2.21346657   2.54718386
+   2.75520427   2.79942864   2.799429  ]
+A" nocc = 1  HOMO = -0.543070253472844  LUMO = 0.274271233243542
+   mo_energy = [-0.54307025  0.27427123  0.58939643  0.8902517   1.13199901  1.68783349
+  1.68783366  1.89561439  2.21346583  2.5471839   2.79942895]
+    CPU time for df vj and vk      0.01 sec, wall time      0.00 sec
+E1 = -79.74291023283158  E_coul = 26.08412801716259
+cycle= 6 E= -40.1986958665913  delta_E= -1.18e-08  |g|= 1.16e-05  |ddm|= 0.000424
+    CPU time for cycle= 6      0.09 sec, wall time      0.00 sec
+HOMO (A') = -0.543070618089294  LUMO (A') = 0.193150066915943
+irrep_nelec = [8, 2]
+A' nocc = 4  HOMO = -0.543070618089294  LUMO = 0.193150066915943
+   mo_energy = [-11.21527399  -0.94283773  -0.54307083  -0.54307062   0.19315007
+   0.27427029   0.27427031   0.58939407   0.58939418   0.89024933
+   0.89024949   0.93603389   1.13199667   1.25733888   1.68783154
+   1.89561152   1.8956117    2.21346346   2.21346421   2.54718139
+   2.75520108   2.79942573   2.7994261 ]
+A" nocc = 1  HOMO = -0.543070689276473  LUMO = 0.27427031189635
+   mo_energy = [-0.54307069  0.27427031  0.58939408  0.89024941  1.13199666  1.68783157
+  1.68783174  1.89561179  2.21346348  2.54718143  2.79942604]
+    CPU time for df vj and vk      0.01 sec, wall time      0.00 sec
+E1 = -79.74292085748581  E_coul = 26.084138641759044
+cycle= 7 E= -40.198695866649  delta_E= -5.78e-11  |g|= 9.72e-07  |ddm|= 2.06e-05
+    CPU time for cycle= 7      0.09 sec, wall time      0.00 sec
+HOMO (A') = -0.543070346584093  LUMO (A') = 0.193150225862495
+irrep_nelec = [8, 2]
+A' nocc = 4  HOMO = -0.543070346584093  LUMO = 0.193150225862495
+   mo_energy = [-11.21527286  -0.9428376   -0.54307056  -0.54307035   0.19315023
+   0.27427046   0.27427048   0.58939439   0.58939449   0.89024972
+   0.89024988   0.93603432   1.13199705   1.2573392    1.68783183
+   1.8956119    1.89561207   2.21346382   2.21346456   2.54718177
+   2.75520152   2.79942623   2.79942659]
+A" nocc = 1  HOMO = -0.543070417775667  LUMO = 0.274270485275687
+   mo_energy = [-0.54307042  0.27427049  0.58939439  0.8902498   1.13199703  1.68783186
+  1.68783203  1.89561216  2.21346383  2.5471818   2.79942654]
+    CPU time for df vj and vk      0.01 sec, wall time      0.00 sec
+E1 = -79.74291955403699  E_coul = 26.084137338309915
+Extra cycle  E= -40.1986958666493  delta_E= -2.98e-13  |g|= 2.34e-07  |ddm|= 2.44e-06
+    CPU time for scf_cycle      1.28 sec, wall time      0.07 sec
+    CPU time for SCF      1.28 sec, wall time      0.07 sec
+converged SCF energy = -40.1986958666493
+
+******** <class 'pyscf.cc.dfccsd.RCCSD'> ********
+CC2 = 0
+CCSD nocc = 5, nmo = 34
+max_cycle = 50
+direct = 0
+conv_tol = 1e-07
+conv_tol_normt = 1e-05
+diis_space = 6
+diis_start_cycle = 0
+diis_start_energy_diff = 1e+09
+max_memory 4000 MB (current use 110 MB)
+    CPU time for df vj and vk      0.01 sec, wall time      0.00 sec
+E1 = -79.74291955403699  E_coul = 26.084137338309926
+Init t2, MP2 energy = -40.3626623932905  E_corr(MP2) -0.163966526641138
+    CPU time for init mp2      0.02 sec, wall time      0.00 sec
+Init E_corr(CCSD) = -0.163966526641765
+cycle = 1  E_corr(CCSD) = -0.181529505901864  dE = -0.0175629793  norm(t1,t2) = 0.029584
+    CPU time for CCSD iter      2.27 sec, wall time      0.15 sec
+cycle = 2  E_corr(CCSD) = -0.185652987811407  dE = -0.00412348191  norm(t1,t2) = 0.0091077
+    CPU time for CCSD iter      2.79 sec, wall time      0.15 sec
+cycle = 3  E_corr(CCSD) = -0.187343694471094  dE = -0.00169070666  norm(t1,t2) = 0.00344597
+    CPU time for CCSD iter      2.80 sec, wall time      0.15 sec
+cycle = 4  E_corr(CCSD) = -0.187368229558263  dE = -2.45350872e-05  norm(t1,t2) = 0.000523789
+    CPU time for CCSD iter      2.79 sec, wall time      0.15 sec
+cycle = 5  E_corr(CCSD) = -0.187355865534475  dE = 1.23640238e-05  norm(t1,t2) = 0.000118831
+    CPU time for CCSD iter      3.09 sec, wall time      0.16 sec
+cycle = 6  E_corr(CCSD) = -0.187360041470112  dE = -4.17593564e-06  norm(t1,t2) = 2.87367e-05
+    CPU time for CCSD iter      2.84 sec, wall time      0.15 sec
+cycle = 7  E_corr(CCSD) = -0.187360020400917  dE = 2.10691954e-08  norm(t1,t2) = 3.56791e-06
+    CPU time for CCSD iter      2.79 sec, wall time      0.15 sec
+    CPU time for CCSD     19.36 sec, wall time      1.05 sec
+RCCSD converged
+E(RCCSD) = -40.38605588705025  E_corr = -0.1873600204009165
+    CPU time for df vj and vk      0.02 sec, wall time      0.00 sec
+E1 = -79.74291955403699  E_coul = 26.084137338309922
+irreps of each MO [0 0 0 1 0 0 0 0 1 0 1 0 0 1 0 0 1 0 0 0 1 1 0 0 1 0 1 0 0 1 0 0 1 0]
+max_memory 3884 MB (115 MB in use)
+    CPU time for CCSD(T)      0.40 sec, wall time      0.02 sec
+CCSD(T) correction = -0.00374291666059591
