@@ -88,7 +88,7 @@ def get_chi2_alpha_fitfun( x, y, ye, fitfun, popt ):
     alpha = 1 - chi2.cdf( sumz2, df=df )
     return sumz2, df, alpha
 
-def get_weighted_mad( x, y, ye, fitfun, popt ):
+def get_weighted_rmsd( x, y, ye, fitfun, popt ):
     energy = 0 
     norm = 0
     yfit = fitfun( x, *popt )
@@ -98,6 +98,4 @@ def get_weighted_mad( x, y, ye, fitfun, popt ):
         norm += 1/ye[i]**2
 
     energy = np.sqrt(energy/norm)
-    energy = np.sqrt(energy)
-
     return energy
