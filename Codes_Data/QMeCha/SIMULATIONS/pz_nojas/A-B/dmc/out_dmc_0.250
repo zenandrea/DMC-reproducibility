@@ -1,0 +1,1826 @@
+   ================================================================
+                 INITIALIZING MPI/OMP ENVIRONMENT                  
+ 
+   Number of MPI tasks                                 :       1280
+   Number of OPENMP threads per MPI task               :          1
+   ================================================================
+                      COMPILATION INFORMATION                      
+ 
+            _______  _______         _______  _                    
+           (_______)(_______)       (_______)| |                   
+            _    _   _  _  _  _____  _       | |__   _____         
+           | |  | | | ||_|| || ___ || |      |  _ \ (____ |        
+           | |__| | | |   | || ____|| |_____ | | | |/ ___ |        
+           \_______)|_|   |_||_____) \______)|_| |_|\_____|        
+ 
+   Git version      :  
+   Compilation date : 10-Jun-2023    
+ 
+ 
+   Starting calculation on the 11.06.2023 at 13:33:50
+ 
+   ================================================================
+                       READING INPUT ARGUMENTS                     
+ 
+   Reading input file : dmc.inp
+ 
+   ================================================================
+                           READING DATAFILE                        
+ 
+   WARNING Cannot find section %basset reading from external flags
+   WARNING Cannot find section %molsys reading from external flags
+   WARNING Cannot find section %optmet the code will do a single   
+           point calculation
+   WARNING Cannot find section %syssym applying default symmetries 
+   WARNING Cannot find section %elcprp the code will only calculate   
+           local energy
+   ================================================================
+     INITIALIZING MERSENNE TWYSTER PSEUDO RAND. NUM. GEN. MT19937  
+ 
+   Initial rand seed                          (r_seed) :  142857369
+ 
+   ================================================================
+                    INITIALIZING  PSEUDOPOTENTIALS                 
+ 
+   Reading pseudopotentials from file      (fle_pspot) : pseudo.dat                    
+   Energy cut-off for pseudopotentials   (ene_psd_cut) :  0.100E-04
+   Integration with locality approximation (LA)
+ 
+   Number of int. points for non-local components      :          6
+   Maximum angular momentum int.                       :          3
+ 
+                   ________________________________                
+                       List of pseudopotentials                    
+ 
+   Atom       N° Non-loc. c.     Charge Replaced      R_cut [bohr] 
+   C                 1                  2                1.4400
+   H                 0                  0                0.8100
+   O                 1                  2                1.0900
+ 
+   ================================================================
+                          MOLECULAR SYSTEM                         
+                  ________________________________                 
+                     Molecular structure [Bohr]                    
+ 
+   Reading coordinates from file          (file_coord) : A-B.xyz                       
+ 
+   Atom              x                   y                   z     
+   *C           29.44862265         17.81935769         18.34426880
+   *H           30.91539783         19.14446955         18.90984493
+   *H           27.70817922         18.25367911         19.34898138
+   *H           29.12813833         17.97500309         16.31935167
+   *H           30.04277522         15.90428088         18.79889722
+   *O            9.44863062         12.57757678         12.03027619
+   *H           10.97379645         12.30738563         11.09311943
+   *H            8.43045753         11.12527312         11.66759617
+                  ________________________________                 
+                        Electronic structure                       
+ 
+   Total charge of the system               (tot_chrg) :          0
+   Number of atoms in the system                (n_at) :          8
+ 
+   Total number of electrons                           :         16
+   Number of spin up electrons                         :          8
+   Number of spin down electrons                       :          8
+   Total spin of the electrons                         :        0.0
+ 
+   ================================================================
+                    WAVE FUNCTION INITIALIZATION                   
+                  ________________________________                 
+                         Wave function types                       
+ 
+   Wave function type for electrons          (wf_type_e) :      rsd
+   No fermionic wave function for positrons  (wf_type_p) :      non
+ 
+                  ________________________________                 
+                     Initialize atomic orbitals                    
+ 
+   Total number of atomic orbitals for fermionic part    :      142
+   Total number of atomic orbitals for Jastrow part      :      112
+   Reading orbital parameters ...                            (done)
+ 
+                  ________________________________                 
+           Initialize fermionic part of the wave function          
+ 
+   Reading Slater det. coefficients for electrons ...        (done)
+                  ________________________________                 
+                     Initialize Jastrow factor                     
+ 
+    - Two-body dynamical factor                        (cpl_m) : m
+    - Localization of two-body coupling                (cpl_j) : a
+    - Spin of the two-body coupling                   (spin_j) : R
+ 
+   Initialize electron-nucleus cusp ...                      (done)
+   Initialize positron-nucleus cusp ...                      (done)
+   Initialize electron-electron cusp ...                     (done)
+   Initialize positron-positron cusp ...                     (done)
+   Initialize electron-positron cusp ...                     (done)
+   Initialize dynamical fermion-nucleus jastrow ...          (done)
+   Initialize dynamical fermion-fermion jastrow ...          (done)
+   Initialize dynamical electron-positron jastrow ...        (done)
+   Initialize dynamical electron-positron-atom jastrow ...   (done)
+                  ________________________________                 
+   fe-nu dynamical part                   (jd1_prs)    :          T
+   fe-fe dynamical part                   (jd2_prs)    :          T
+   Enhanced el-po dynamical part          (jdep_prs)   :          F
+   Enhanced mixed el-po dynamical part    (jaep_prs)   :          F
+ 
+                  ________________________________                 
+   Number of par. of dynamical part       (n_par_jstd) :          0
+   Number of par. of el.-po. dyn. part    (n_par_jepd) :          0
+   Number of par. of mixed el.-po. dyn.   (n_par_jepa) :          0
+   Number of par. of Jas. orbitals        (n_par_jorbs):          0
+   Number of par. of ele-pos. Jas. orbs   (n_par_jepos):          0
+ 
+ 
+   Reading save file of the Jastrow factor ...               
+   One body coefficients smaller then 10d-14 (jd1_prs = .false.)   
+   Two body coefficients smaller then 10d-14 (jd2_prs = .false.)   
+   WARNING! No Jastrow factor is included
+ 
+   ================================================================
+                   STARTING DIFFUSION MONTE CARLO                  
+                  ________________________________                 
+             Metropolis variables for fermionic sampling           
+ 
+   3d Gaussian Transition prob. with dt*I covariance               
+ 
+   Adding space mapping to dynamically adjust dt step.             
+ 
+   Initial Metropolis step for electrons        (dt_e) :  0.100E+01
+   Variable metropolis step                   (var_dt) :          T
+ 
+                  ________________________________                 
+                   Monte Carlo sampling variables                  
+ 
+   Number of thermalization steps              (n_trm) :          3
+   MC sampling per core                  (n_bin*bin_l) :      30000
+   All-particle sweeps before branching        (n_bra) :          0
+   Number of moves before matrix recomputation (n_scr) :         16
+   Number of independent walkers per core      (n_wlk) :         10
+   Total number of independent walkers                 :      12800
+                    ______________________________                 
+                   Diffusion Monte Carlo parameters                
+ 
+   Total number of thermalization steps                :         25
+   Total projection time                          [au] :  0.750E+04
+   Diffusion Monte Carlo time step           (dt) [au] :  0.250E+00
+   Total number of steps                               :      30000
+   Total target weight per step                   [au] :  0.128E+05
+ 
+   Reference energy reweighting factor      (g_r) [au] :  0.100E+01
+   Stochastic Reconfiguration branching   (brnch_type) :          2
+   Electronic sweeps between branching                 :          0
+   P.b.p. with sigma cut-off              (encrr_type) :         12
+                     _____________________________                 
+                   Thermalization and tstep estimation             
+ 
+             Block N°      Acc. rate. [%]      Time step [au]      
+               1              39.509           0.45820894E+00
+               2              52.838           0.53107545E+00
+ 
+   ================================================================
+            Correlated variational of energy and variance          
+ 
+       Energy   [Eh] :  -24.7738109510529     +/-  0.8462069E-03
+       Var[E] [Eh^2] :   4.58282279154226     +/-  0.2561876E-02
+ 
+       Kin.Ene. [Eh] :   20.2228729555885     +/-  0.3690741E-02
+       Var[K] [Eh^2] :   87.1780263193485     +/-  0.4873400E-01
+ 
+       Pot.Ene. [Eh] :  -64.4990858079078     +/-  0.3751126E-02
+       Var[V] [Eh^2] :   90.0540454474465     +/-  0.5034175E-01
+ 
+       SPE      [Eh] :  -2.76726330326995     +/-  0.2802123E-03
+       Var[S] [Eh^2] :  0.502521311839386     +/-  0.2809180E-03
+ 
+                    ______________________________                 
+                 Diffusion Monte Carlo thermalization              
+   ________________________________________________________________
+   Block                                               n°         1
+ 
+       E_b      [Eh] :  -25.5795775404287     +/-  0.6412695E-03
+       Var_b  [Eh^2] :   2.40824702774159     +/-  0.1407363E-02
+ 
+       SPE      [Eh] :  -2.81762371510594     +/-  0.2727182E-03
+       Var[S] [Eh^2] :  0.435560214667434     +/-  0.2545384E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25533452008867E+02
+   Average effective time step         [au] :  0.18568164339265E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.99407839212179E+00
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.059
+   Total time for block                          [sec] :      12.92
+   ________________________________________________________________
+   Block                                               n°         2
+ 
+       E_b      [Eh] :  -25.5826914736030     +/-  0.6409070E-03
+       Var_b  [Eh^2] :   2.41173977385358     +/-  0.1407587E-02
+ 
+       SPE      [Eh] :  -2.81781833592934     +/-  0.2720233E-03
+       Var[S] [Eh^2] :  0.434462903860794     +/-  0.2535698E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25526281164144E+02
+   Average effective time step         [au] :  0.18559880558794E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.99128888718581E+00
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.047
+   Total time for block                          [sec] :       7.83
+   ________________________________________________________________
+   Block                                               n°         3
+ 
+       E_b      [Eh] :  -25.5803024671818     +/-  0.6410094E-03
+       Var_b  [Eh^2] :   2.41238070533913     +/-  0.1407999E-02
+ 
+       SPE      [Eh] :  -2.81766902302801     +/-  0.2719752E-03
+       Var[S] [Eh^2] :  0.434285843747747     +/-  0.2534733E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25523638333032E+02
+   Average effective time step         [au] :  0.18558954066083E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.99754812926126E+00
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.042
+   Total time for block                          [sec] :       6.22
+   ________________________________________________________________
+   Block                                               n°         4
+ 
+       E_b      [Eh] :  -25.5802833454561     +/-  0.6412386E-03
+       Var_b  [Eh^2] :   2.41389774990565     +/-  0.1408945E-02
+ 
+       SPE      [Eh] :  -2.81766782792015     +/-  0.2720994E-03
+       Var[S] [Eh^2] :  0.434644908392017     +/-  0.2536938E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25523407880690E+02
+   Average effective time step         [au] :  0.18557752158203E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.10012595319282E+01
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.040
+   Total time for block                          [sec] :       5.47
+   ________________________________________________________________
+   Block                                               n°         5
+ 
+       E_b      [Eh] :  -25.5807360213316     +/-  0.6410641E-03
+       Var_b  [Eh^2] :   2.41281145175655     +/-  0.1408245E-02
+ 
+       SPE      [Eh] :  -2.81769612016237     +/-  0.2720484E-03
+       Var[S] [Eh^2] :  0.434523115805562     +/-  0.2536108E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524034773326E+02
+   Average effective time step         [au] :  0.18560781207584E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.99476246104249E+00
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.043
+   Total time for block                          [sec] :       5.99
+   ________________________________________________________________
+   Block                                               n°         6
+ 
+       E_b      [Eh] :  -25.5810538837750     +/-  0.6412897E-03
+       Var_b  [Eh^2] :   2.41431581346538     +/-  0.1409180E-02
+ 
+       SPE      [Eh] :  -2.81771598656508     +/-  0.2720544E-03
+       Var[S] [Eh^2] :  0.434507327274766     +/-  0.2536118E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524251101777E+02
+   Average effective time step         [au] :  0.18561277304614E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.10091146815091E+01
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.051
+   Total time for block                          [sec] :       5.48
+   ________________________________________________________________
+   Block                                               n°         7
+ 
+       E_b      [Eh] :  -25.5812497252905     +/-  0.6411705E-03
+       Var_b  [Eh^2] :   2.41357859603085     +/-  0.1408702E-02
+ 
+       SPE      [Eh] :  -2.81772822665980     +/-  0.2720062E-03
+       Var[S] [Eh^2] :  0.434382328656869     +/-  0.2535304E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524626201409E+02
+   Average effective time step         [au] :  0.18561576472546E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.10015930456902E+01
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.052
+   Total time for block                          [sec] :       5.56
+   ________________________________________________________________
+   Block                                               n°         8
+ 
+       E_b      [Eh] :  -25.5798388427234     +/-  0.6412065E-03
+       Var_b  [Eh^2] :   2.41367499133558     +/-  0.1408810E-02
+ 
+       SPE      [Eh] :  -2.81764004649936     +/-  0.2720933E-03
+       Var[S] [Eh^2] :  0.434628900324635     +/-  0.2536835E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25523648514056E+02
+   Average effective time step         [au] :  0.18560830274394E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.99341710716930E+00
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.052
+   Total time for block                          [sec] :       5.76
+   ________________________________________________________________
+   Block                                               n°         9
+ 
+       E_b      [Eh] :  -25.5798880856315     +/-  0.6407669E-03
+       Var_b  [Eh^2] :   2.41081660509850     +/-  0.1407010E-02
+ 
+       SPE      [Eh] :  -2.81764312418112     +/-  0.2719698E-03
+       Var[S] [Eh^2] :  0.434315610604910     +/-  0.2534769E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25523112749491E+02
+   Average effective time step         [au] :  0.18557927071235E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.99839217539518E+00
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.042
+   Total time for block                          [sec] :       5.87
+   ________________________________________________________________
+   Block                                               n°        10
+ 
+       E_b      [Eh] :  -25.5800399436010     +/-  0.6411006E-03
+       Var_b  [Eh^2] :   2.41306413079697     +/-  0.1408399E-02
+ 
+       SPE      [Eh] :  -2.81765261530421     +/-  0.2719573E-03
+       Var[S] [Eh^2] :  0.434227985737563     +/-  0.2534397E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25523345579924E+02
+   Average effective time step         [au] :  0.18559067120231E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.10005833756088E+01
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.048
+   Total time for block                          [sec] :       5.61
+   ________________________________________________________________
+   Block                                               n°        11
+ 
+       E_b      [Eh] :  -25.5809181603679     +/-  0.6413507E-03
+       Var_b  [Eh^2] :   2.41477385910866     +/-  0.1409447E-02
+ 
+       SPE      [Eh] :  -2.81770750385214     +/-  0.2720394E-03
+       Var[S] [Eh^2] :  0.434459219312457     +/-  0.2535837E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524317426547E+02
+   Average effective time step         [au] :  0.18558530021675E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.10119138846977E+01
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.043
+   Total time for block                          [sec] :       5.58
+   ________________________________________________________________
+   Block                                               n°        12
+ 
+       E_b      [Eh] :  -25.5813143111300     +/-  0.6414838E-03
+       Var_b  [Eh^2] :   2.41566652383284     +/-  0.1410000E-02
+ 
+       SPE      [Eh] :  -2.81773226327477     +/-  0.2719461E-03
+       Var[S] [Eh^2] :  0.434141549849658     +/-  0.2534041E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524673728780E+02
+   Average effective time step         [au] :  0.18560487449203E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.10002488023304E+01
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.047
+   Total time for block                          [sec] :       5.53
+   ________________________________________________________________
+   Block                                               n°        13
+ 
+       E_b      [Eh] :  -25.5805002394177     +/-  0.6410709E-03
+       Var_b  [Eh^2] :   2.41283404259198     +/-  0.1408266E-02
+ 
+       SPE      [Eh] :  -2.81768138379275     +/-  0.2719913E-03
+       Var[S] [Eh^2] :  0.434335636068351     +/-  0.2535029E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524077780636E+02
+   Average effective time step         [au] :  0.18558826004384E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.98797995150549E+00
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.044
+   Total time for block                          [sec] :       5.66
+   ________________________________________________________________
+   Block                                               n°        14
+ 
+       E_b      [Eh] :  -25.5809257184695     +/-  0.6411904E-03
+       Var_b  [Eh^2] :   2.41375412870486     +/-  0.1408798E-02
+ 
+       SPE      [Eh] :  -2.81770797623349     +/-  0.2721090E-03
+       Var[S] [Eh^2] :  0.434715269321714     +/-  0.2537234E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524473640098E+02
+   Average effective time step         [au] :  0.18560201662557E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.10060350177283E+01
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.049
+   Total time for block                          [sec] :       5.71
+   ________________________________________________________________
+   Block                                               n°        15
+ 
+       E_b      [Eh] :  -25.5797262774439     +/-  0.6410391E-03
+       Var_b  [Eh^2] :   2.41268482266003     +/-  0.1408153E-02
+ 
+       SPE      [Eh] :  -2.81763301116939     +/-  0.2721066E-03
+       Var[S] [Eh^2] :  0.434719924855862     +/-  0.2537224E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25523346836579E+02
+   Average effective time step         [au] :  0.18563429396064E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.99798417086481E+00
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.054
+   Total time for block                          [sec] :       5.63
+   ________________________________________________________________
+   Block                                               n°        16
+ 
+       E_b      [Eh] :  -25.5808743149118     +/-  0.6411033E-03
+       Var_b  [Eh^2] :   2.41306486815393     +/-  0.1408405E-02
+ 
+       SPE      [Eh] :  -2.81770476351113     +/-  0.2722027E-03
+       Var[S] [Eh^2] :  0.435008569703022     +/-  0.2538963E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524019970760E+02
+   Average effective time step         [au] :  0.18562320102312E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.10060837460586E+01
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.062
+   Total time for block                          [sec] :       5.53
+   ________________________________________________________________
+   Block                                               n°        17
+ 
+       E_b      [Eh] :  -25.5809987369811     +/-  0.6408996E-03
+       Var_b  [Eh^2] :   2.41153839496411     +/-  0.1407512E-02
+ 
+       SPE      [Eh] :  -2.81771253989047     +/-  0.2720032E-03
+       Var[S] [Eh^2] :  0.434372499742133     +/-  0.2535247E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524382240355E+02
+   Average effective time step         [au] :  0.18561585612912E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.10069899181333E+01
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.050
+   Total time for block                          [sec] :       5.45
+   ________________________________________________________________
+   Block                                               n°        18
+ 
+       E_b      [Eh] :  -25.5805497866633     +/-  0.6407961E-03
+       Var_b  [Eh^2] :   2.41080815597826     +/-  0.1407072E-02
+ 
+       SPE      [Eh] :  -2.81768448049560     +/-  0.2721006E-03
+       Var[S] [Eh^2] :  0.434692269495611     +/-  0.2537088E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25523945161222E+02
+   Average effective time step         [au] :  0.18563453264134E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.10002655458598E+01
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.063
+   Total time for block                          [sec] :       5.84
+   ________________________________________________________________
+   Block                                               n°        19
+ 
+       E_b      [Eh] :  -25.5797880734896     +/-  0.6412490E-03
+       Var_b  [Eh^2] :   2.41419477331266     +/-  0.1409055E-02
+ 
+       SPE      [Eh] :  -2.81763687342225     +/-  0.2720212E-03
+       Var[S] [Eh^2] :  0.434434714377616     +/-  0.2535596E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25523310456075E+02
+   Average effective time step         [au] :  0.18558355352615E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.10013093724559E+01
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.036
+   Total time for block                          [sec] :       6.18
+   ________________________________________________________________
+   Block                                               n°        20
+ 
+       E_b      [Eh] :  -25.5814344573562     +/-  0.6411581E-03
+       Var_b  [Eh^2] :   2.41349448027256     +/-  0.1408651E-02
+ 
+       SPE      [Eh] :  -2.81773977241391     +/-  0.2720807E-03
+       Var[S] [Eh^2] :  0.434621857659230     +/-  0.2536697E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524693981886E+02
+   Average effective time step         [au] :  0.18560812101424E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.10098161903352E+01
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.050
+   Total time for block                          [sec] :       5.60
+   ________________________________________________________________
+   Block                                               n°        21
+ 
+       E_b      [Eh] :  -25.5809483602563     +/-  0.6407275E-03
+       Var_b  [Eh^2] :   2.41038267629825     +/-  0.1406797E-02
+ 
+       SPE      [Eh] :  -2.81770939134516     +/-  0.2719865E-03
+       Var[S] [Eh^2] :  0.434344295467047     +/-  0.2535009E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524448847721E+02
+   Average effective time step         [au] :  0.18560231727090E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.10002193693356E+01
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.046
+   Total time for block                          [sec] :       5.96
+   ________________________________________________________________
+   Block                                               n°        22
+ 
+       E_b      [Eh] :  -25.5800366747097     +/-  0.6412974E-03
+       Var_b  [Eh^2] :   2.41450095217488     +/-  0.1409251E-02
+ 
+       SPE      [Eh] :  -2.81765241099850     +/-  0.2721051E-03
+       Var[S] [Eh^2] :  0.434692023802566     +/-  0.2537129E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25523290406392E+02
+   Average effective time step         [au] :  0.18562045271028E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.99843905908833E+00
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.055
+   Total time for block                          [sec] :       5.48
+   ________________________________________________________________
+   Block                                               n°        23
+ 
+       E_b      [Eh] :  -25.5798277443080     +/-  0.6410714E-03
+       Var_b  [Eh^2] :   2.41289729840051     +/-  0.1408286E-02
+ 
+       SPE      [Eh] :  -2.81763935284840     +/-  0.2720273E-03
+       Var[S] [Eh^2] :  0.434461263073012     +/-  0.2535730E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25523219202908E+02
+   Average effective time step         [au] :  0.18560040939662E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.10064116946491E+01
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.042
+   Total time for block                          [sec] :       5.56
+   ________________________________________________________________
+   Block                                               n°        24
+ 
+       E_b      [Eh] :  -25.5807308784489     +/-  0.6415965E-03
+       Var_b  [Eh^2] :   2.41653647036569     +/-  0.1410502E-02
+ 
+       SPE      [Eh] :  -2.81769579873220     +/-  0.2721430E-03
+       Var[S] [Eh^2] :  0.434774311931080     +/-  0.2537723E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524145641240E+02
+   Average effective time step         [au] :  0.18559158661634E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.99599162688767E+00
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.042
+   Total time for block                          [sec] :       5.84
+   ________________________________________________________________
+   Block                                               n°        25
+ 
+       E_b      [Eh] :  -25.5824525750695     +/-  0.6406589E-03
+       Var_b  [Eh^2] :   2.41002483260418     +/-  0.1406542E-02
+ 
+       SPE      [Eh] :  -2.81780340477099     +/-  0.2719675E-03
+       Var[S] [Eh^2] :  0.434311826725775     +/-  0.2534736E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25526150369776E+02
+   Average effective time step         [au] :  0.18558423323945E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.99518707224010E+00
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.038
+   Total time for block                          [sec] :       5.44
+ 
+                    ______________________________                 
+                  Diffusion Monte Carlo accumulation               
+   ________________________________________________________________
+   Block                                               n°         2
+ 
+       E_b      [Eh] :  -25.5796197728108     +/-  0.6410414E-03
+       Var_b  [Eh^2] :   2.41260265378729     +/-  0.1408134E-02
+ 
+       SPE      [Eh] :  -2.81762635462982     +/-  0.2720802E-03
+       Var[S] [Eh^2] :  0.434617715714288     +/-  0.2536680E-03
+ 
+       E[MA]    [Eh] :  -25.5810386381873     +/-  0.4531501E-03
+       Var[MA][Eh^2] :   2.41131330159940     +/-  0.9951394E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524493054049E+02
+   Average effective time step         [au] :  0.18560401030649E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.98746055989348E+00
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.058
+   Total time for block                          [sec] :       5.64
+   ________________________________________________________________
+   Block                                               n°         3
+ 
+       E_b      [Eh] :  -25.5817898489206     +/-  0.6409982E-03
+       Var_b  [Eh^2] :   2.41221681280987     +/-  0.1407927E-02
+ 
+       SPE      [Eh] :  -2.81776198438668     +/-  0.2720274E-03
+       Var[S] [Eh^2] :  0.434438078500482     +/-  0.2535663E-03
+ 
+       E[MA]    [Eh] :  -25.5812892341512     +/-  0.3700239E-03
+       Var[MA][Eh^2] :   2.41161469185352     +/-  0.8126411E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524651421921E+02
+   Average effective time step         [au] :  0.18561128948596E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.10022953616836E+01
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.056
+   Total time for block                          [sec] :       5.39
+   ________________________________________________________________
+   Block                                               n°         4
+ 
+       E_b      [Eh] :  -25.5807067369661     +/-  0.6415022E-03
+       Var_b  [Eh^2] :   2.41589231515995     +/-  0.1410107E-02
+ 
+       SPE      [Eh] :  -2.81769428988953     +/-  0.2720005E-03
+       Var[S] [Eh^2] :  0.434330941714372     +/-  0.2535100E-03
+ 
+       E[MA]    [Eh] :  -25.5811436252359     +/-  0.3205254E-03
+       Var[MA][Eh^2] :   2.41268394551795     +/-  0.7040891E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524522269124E+02
+   Average effective time step         [au] :  0.18560950999971E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.10005034869285E+01
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.055
+   Total time for block                          [sec] :       5.53
+   ________________________________________________________________
+   Block                                               n°         5
+ 
+       E_b      [Eh] :  -25.5801251881501     +/-  0.6415468E-03
+       Var_b  [Eh^2] :   2.41619203390251     +/-  0.1410292E-02
+ 
+       SPE      [Eh] :  -2.81765794308853     +/-  0.2720404E-03
+       Var[S] [Eh^2] :  0.434451631690373     +/-  0.2535824E-03
+ 
+       E[MA]    [Eh] :  -25.5809400854397     +/-  0.2867310E-03
+       Var[MA][Eh^2] :   2.41338513831957     +/-  0.6299454E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524284304112E+02
+   Average effective time step         [au] :  0.18561026744912E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.98757580191104E+00
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.053
+   Total time for block                          [sec] :       5.65
+   ________________________________________________________________
+   Block                                               n°         6
+ 
+       E_b      [Eh] :  -25.5808099248730     +/-  0.6414594E-03
+       Var_b  [Eh^2] :   2.41542514749276     +/-  0.1409876E-02
+ 
+       SPE      [Eh] :  -2.81770073913371     +/-  0.2719597E-03
+       Var[S] [Eh^2] :  0.434174609709373     +/-  0.2534264E-03
+ 
+       E[MA]    [Eh] :  -25.5809183914948     +/-  0.2617694E-03
+       Var[MA][Eh^2] :   2.41372508173740     +/-  0.5751456E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524221495627E+02
+   Average effective time step         [au] :  0.18561084866001E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.10028834997497E+01
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.052
+   Total time for block                          [sec] :       5.52
+   ________________________________________________________________
+   Block                                               n°         7
+ 
+       E_b      [Eh] :  -25.5801498550022     +/-  0.6413811E-03
+       Var_b  [Eh^2] :   2.41493498463327     +/-  0.1409561E-02
+ 
+       SPE      [Eh] :  -2.81765948476678     +/-  0.2719838E-03
+       Var[S] [Eh^2] :  0.434269294786617     +/-  0.2534764E-03
+ 
+       E[MA]    [Eh] :  -25.5808086134522     +/-  0.2423611E-03
+       Var[MA][Eh^2] :   2.41389791828516     +/-  0.5325218E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524137720737E+02
+   Average effective time step         [au] :  0.18561092807596E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.99418284197526E+00
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.051
+   Total time for block                          [sec] :       5.54
+   ________________________________________________________________
+   Block                                               n°         8
+ 
+       E_b      [Eh] :  -25.5806549600320     +/-  0.6412907E-03
+       Var_b  [Eh^2] :   2.41423999803900     +/-  0.1409160E-02
+ 
+       SPE      [Eh] :  -2.81769105383115     +/-  0.2719915E-03
+       Var[S] [Eh^2] :  0.434291455316355     +/-  0.2534901E-03
+ 
+       E[MA]    [Eh] :  -25.5807894074569     +/-  0.2267108E-03
+       Var[MA][Eh^2] :   2.41394062791364     +/-  0.4981391E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524081626455E+02
+   Average effective time step         [au] :  0.18560570604460E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.10088331076471E+01
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.050
+   Total time for block                          [sec] :       5.51
+   ________________________________________________________________
+   Block                                               n°         9
+ 
+       E_b      [Eh] :  -25.5798503527365     +/-  0.6416110E-03
+       Var_b  [Eh^2] :   2.41649252310093     +/-  0.1410521E-02
+ 
+       SPE      [Eh] :  -2.81764076587518     +/-  0.2721479E-03
+       Var[S] [Eh^2] :  0.434762239525622     +/-  0.2537733E-03
+ 
+       E[MA]    [Eh] :  -25.5806851299934     +/-  0.2137590E-03
+       Var[MA][Eh^2] :   2.41422404481076     +/-  0.4697082E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25523955415207E+02
+   Average effective time step         [au] :  0.18560498921389E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.10068345911170E+01
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.049
+   Total time for block                          [sec] :       5.46
+   ________________________________________________________________
+   Block                                               n°        10
+ 
+       E_b      [Eh] :  -25.5802646703480     +/-  0.6412548E-03
+       Var_b  [Eh^2] :   2.41411802609345     +/-  0.1409045E-02
+ 
+       SPE      [Eh] :  -2.81766666072590     +/-  0.2719590E-03
+       Var[S] [Eh^2] :  0.434214429200871     +/-  0.2534374E-03
+ 
+       E[MA]    [Eh] :  -25.5806430809711     +/-  0.2027889E-03
+       Var[MA][Eh^2] :   2.41421341695550     +/-  0.4456018E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25523911671673E+02
+   Average effective time step         [au] :  0.18560406928264E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.10144284580626E+01
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.049
+   Total time for block                          [sec] :       5.92
+   ________________________________________________________________
+   Block                                               n°        11
+ 
+       E_b      [Eh] :  -25.5800244452148     +/-  0.6409936E-03
+       Var_b  [Eh^2] :   2.41242511086666     +/-  0.1407977E-02
+ 
+       SPE      [Eh] :  -2.81765164665507     +/-  0.2719954E-03
+       Var[S] [Eh^2] :  0.434379759268473     +/-  0.2535195E-03
+ 
+       E[MA]    [Eh] :  -25.5805868435639     +/-  0.1933439E-03
+       Var[MA][Eh^2] :   2.41405084432936     +/-  0.4248334E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25523865183203E+02
+   Average effective time step         [au] :  0.18560502096222E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.99772862046834E+00
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.050
+   Total time for block                          [sec] :       6.40
+   ________________________________________________________________
+   Block                                               n°        12
+ 
+       E_b      [Eh] :  -25.5807333588662     +/-  0.6412549E-03
+       Var_b  [Eh^2] :   2.41408752219331     +/-  0.1409036E-02
+ 
+       SPE      [Eh] :  -2.81769595375829     +/-  0.2720879E-03
+       Var[S] [Eh^2] :  0.434620424809154     +/-  0.2536760E-03
+ 
+       E[MA]    [Eh] :  -25.5805990606072     +/-  0.1851128E-03
+       Var[MA][Eh^2] :   2.41405387003283     +/-  0.4067476E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25523882398388E+02
+   Average effective time step         [au] :  0.18560268686196E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.99717669078563E+00
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.049
+   Total time for block                          [sec] :       5.79
+   ________________________________________________________________
+   Block                                               n°        13
+ 
+       E_b      [Eh] :  -25.5793168032790     +/-  0.6411468E-03
+       Var_b  [Eh^2] :   2.41333702328762     +/-  0.1408580E-02
+ 
+       SPE      [Eh] :  -2.81760741903409     +/-  0.2720638E-03
+       Var[S] [Eh^2] :  0.434554692565832     +/-  0.2536343E-03
+ 
+       E[MA]    [Eh] :  -25.5805004903907     +/-  0.1778485E-03
+       Var[MA][Eh^2] :   2.41399884936835     +/-  0.3907812E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25523792579231E+02
+   Average effective time step         [au] :  0.18560155814953E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.99957666287351E+00
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.049
+   Total time for block                          [sec] :       5.80
+   ________________________________________________________________
+   Block                                               n°        14
+ 
+       E_b      [Eh] :  -25.5811601105957     +/-  0.6415349E-03
+       Var_b  [Eh^2] :   2.41609380846968     +/-  0.1410237E-02
+ 
+       SPE      [Eh] :  -2.81772262574138     +/-  0.2719682E-03
+       Var[S] [Eh^2] :  0.434219639663485     +/-  0.2534474E-03
+ 
+       E[MA]    [Eh] :  -25.5805476507257     +/-  0.1713847E-03
+       Var[MA][Eh^2] :   2.41414863043670     +/-  0.3765902E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25523833019578E+02
+   Average effective time step         [au] :  0.18560193285644E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.99514057707432E+00
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.049
+   Total time for block                          [sec] :       5.45
+   ________________________________________________________________
+   Block                                               n°        15
+ 
+       E_b      [Eh] :  -25.5818359745449     +/-  0.6411853E-03
+       Var_b  [Eh^2] :   2.41362302284989     +/-  0.1408748E-02
+ 
+       SPE      [Eh] :  -2.81776486723821     +/-  0.2720983E-03
+       Var[S] [Eh^2] :  0.434664215384695     +/-  0.2536984E-03
+ 
+       E[MA]    [Eh] :  -25.5806336783870     +/-  0.1655720E-03
+       Var[MA][Eh^2] :   2.41411360903687     +/-  0.3638151E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25523921526930E+02
+   Average effective time step         [au] :  0.18560083970647E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.10083174180840E+01
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.049
+   Total time for block                          [sec] :       5.51
+   ________________________________________________________________
+   Block                                               n°        16
+ 
+       E_b      [Eh] :  -25.5804612780929     +/-  0.6409553E-03
+       Var_b  [Eh^2] :   2.41201168718161     +/-  0.1407772E-02
+ 
+       SPE      [Eh] :  -2.81767894870995     +/-  0.2719713E-03
+       Var[S] [Eh^2] :  0.434280448525035     +/-  0.2534681E-03
+ 
+       E[MA]    [Eh] :  -25.5806229031579     +/-  0.1603097E-03
+       Var[MA][Eh^2] :   2.41398221241696     +/-  0.3522425E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25523903188638E+02
+   Average effective time step         [au] :  0.18560215253855E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.10027135805900E+01
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.049
+   Total time for block                          [sec] :       5.86
+   ________________________________________________________________
+   Block                                               n°        17
+ 
+       E_b      [Eh] :  -25.5814927836956     +/-  0.6406101E-03
+       Var_b  [Eh^2] :   2.40958302953608     +/-  0.1406306E-02
+ 
+       SPE      [Eh] :  -2.81774341781012     +/-  0.2719331E-03
+       Var[S] [Eh^2] :  0.434188776611762     +/-  0.2534057E-03
+ 
+       E[MA]    [Eh] :  -25.5806741286205     +/-  0.1555143E-03
+       Var[MA][Eh^2] :   2.41372317142279     +/-  0.3416874E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25523957372750E+02
+   Average effective time step         [au] :  0.18560244173196E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.10009938557986E+01
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.049
+   Total time for block                          [sec] :       5.41
+   ________________________________________________________________
+   Block                                               n°        18
+ 
+       E_b      [Eh] :  -25.5819586287740     +/-  0.6411144E-03
+       Var_b  [Eh^2] :   2.41318863325980     +/-  0.1408465E-02
+ 
+       SPE      [Eh] :  -2.81777253312752     +/-  0.2720230E-03
+       Var[S] [Eh^2] :  0.434441766706070     +/-  0.2535634E-03
+ 
+       E[MA]    [Eh] :  -25.5807455977613     +/-  0.1511316E-03
+       Var[MA][Eh^2] :   2.41369349373044     +/-  0.3320559E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524036669680E+02
+   Average effective time step         [au] :  0.18560168796800E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.10030538084473E+01
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.048
+   Total time for block                          [sec] :       5.61
+   ________________________________________________________________
+   Block                                               n°        19
+ 
+       E_b      [Eh] :  -25.5801148056933     +/-  0.6410329E-03
+       Var_b  [Eh^2] :   2.41259804655934     +/-  0.1408114E-02
+ 
+       SPE      [Eh] :  -2.81765729418498     +/-  0.2720760E-03
+       Var[S] [Eh^2] :  0.434615055028641     +/-  0.2536633E-03
+ 
+       E[MA]    [Eh] :  -25.5807124121284     +/-  0.1470987E-03
+       Var[MA][Eh^2] :   2.41363586105191     +/-  0.3231913E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524004332539E+02
+   Average effective time step         [au] :  0.18560184891266E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.10121695932787E+01
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.048
+   Total time for block                          [sec] :       5.55
+   ________________________________________________________________
+   Block                                               n°        20
+ 
+       E_b      [Eh] :  -25.5820646744126     +/-  0.6411455E-03
+       Var_b  [Eh^2] :   2.41340113260143     +/-  0.1408596E-02
+ 
+       SPE      [Eh] :  -2.81777916097993     +/-  0.2719542E-03
+       Var[S] [Eh^2] :  0.434218182296467     +/-  0.2534340E-03
+ 
+       E[MA]    [Eh] :  -25.5807801438379     +/-  0.1433736E-03
+       Var[MA][Eh^2] :   2.41362417046151     +/-  0.3150061E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524092133606E+02
+   Average effective time step         [au] :  0.18560094575226E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.10067057169880E+01
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.048
+   Total time for block                          [sec] :       5.53
+   ________________________________________________________________
+   Block                                               n°        21
+ 
+       E_b      [Eh] :  -25.5804294207948     +/-  0.6407563E-03
+       Var_b  [Eh^2] :   2.41051165730991     +/-  0.1406898E-02
+ 
+       SPE      [Eh] :  -2.81767695762882     +/-  0.2720078E-03
+       Var[S] [Eh^2] :  0.434396258187334     +/-  0.2535359E-03
+ 
+       E[MA]    [Eh] :  -25.5807634449186     +/-  0.1399138E-03
+       Var[MA][Eh^2] :   2.41347596090764     +/-  0.3073953E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524081696602E+02
+   Average effective time step         [au] :  0.18560093574262E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.10179237389252E+01
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.048
+   Total time for block                          [sec] :       5.67
+   ________________________________________________________________
+   Block                                               n°        22
+ 
+       E_b      [Eh] :  -25.5816045296605     +/-  0.6411921E-03
+       Var_b  [Eh^2] :   2.41357176879040     +/-  0.1408748E-02
+ 
+       SPE      [Eh] :  -2.81775040193293     +/-  0.2720803E-03
+       Var[S] [Eh^2] :  0.434588323277359     +/-  0.2536595E-03
+ 
+       E[MA]    [Eh] :  -25.5808017199583     +/-  0.1366973E-03
+       Var[MA][Eh^2] :   2.41348033283248     +/-  0.3003286E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524134472770E+02
+   Average effective time step         [au] :  0.18559998938033E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.99276626442257E+00
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.048
+   Total time for block                          [sec] :       5.56
+   ________________________________________________________________
+   Block                                               n°        23
+ 
+       E_b      [Eh] :  -25.5798905411406     +/-  0.6414788E-03
+       Var_b  [Eh^2] :   2.41567195509585     +/-  0.1409991E-02
+ 
+       SPE      [Eh] :  -2.81764327765043     +/-  0.2720213E-03
+       Var[S] [Eh^2] :  0.434389219362957     +/-  0.2535464E-03
+ 
+       E[MA]    [Eh] :  -25.5807621422596     +/-  0.1336954E-03
+       Var[MA][Eh^2] :   2.41357554412432     +/-  0.2937392E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524088074772E+02
+   Average effective time step         [au] :  0.18559973818112E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.10034051289500E+01
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.047
+   Total time for block                          [sec] :       5.57
+   ________________________________________________________________
+   Block                                               n°        24
+ 
+       E_b      [Eh] :  -25.5810422700990     +/-  0.6414427E-03
+       Var_b  [Eh^2] :   2.41540752010815     +/-  0.1409834E-02
+ 
+       SPE      [Eh] :  -2.81771526071033     +/-  0.2720621E-03
+       Var[S] [Eh^2] :  0.434521038936134     +/-  0.2536229E-03
+ 
+       E[MA]    [Eh] :  -25.5807738165468     +/-  0.1308827E-03
+       Var[MA][Eh^2] :   2.41365187744757     +/-  0.2875639E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524093972557E+02
+   Average effective time step         [au] :  0.18559863785664E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.99970643820724E+00
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.047
+   Total time for block                          [sec] :       5.43
+   ________________________________________________________________
+   Block                                               n°        25
+ 
+       E_b      [Eh] :  -25.5801931815134     +/-  0.6408459E-03
+       Var_b  [Eh^2] :   2.41133535284411     +/-  0.1407335E-02
+ 
+       SPE      [Eh] :  -2.81766219267374     +/-  0.2721415E-03
+       Var[S] [Eh^2] :  0.434850508586578     +/-  0.2537931E-03
+ 
+       E[MA]    [Eh] :  -25.5807505963282     +/-  0.1282355E-03
+       Var[MA][Eh^2] :   2.41355923365708     +/-  0.2817425E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524081992080E+02
+   Average effective time step         [au] :  0.18559967562662E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.10009336437382E+01
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.047
+   Total time for block                          [sec] :       5.46
+   ________________________________________________________________
+   Block                                               n°        26
+ 
+       E_b      [Eh] :  -25.5797774178578     +/-  0.6415676E-03
+       Var_b  [Eh^2] :   2.41626063937392     +/-  0.1410358E-02
+ 
+       SPE      [Eh] :  -2.81763620744526     +/-  0.2721523E-03
+       Var[S] [Eh^2] :  0.434793557099418     +/-  0.2537866E-03
+ 
+       E[MA]    [Eh] :  -25.5807132014572     +/-  0.1257482E-03
+       Var[MA][Eh^2] :   2.41366305570602     +/-  0.2762836E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524041174671E+02
+   Average effective time step         [au] :  0.18560072822187E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.99963448781212E+00
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.048
+   Total time for block                          [sec] :       5.82
+   ________________________________________________________________
+   Block                                               n°        27
+ 
+       E_b      [Eh] :  -25.5821546947018     +/-  0.6409810E-03
+       Var_b  [Eh^2] :   2.41210999692638     +/-  0.1407858E-02
+ 
+       SPE      [Eh] :  -2.81778478724801     +/-  0.2720065E-03
+       Var[S] [Eh^2] :  0.434375568864444     +/-  0.2535286E-03
+ 
+       E[MA]    [Eh] :  -25.5807666745552     +/-  0.1233961E-03
+       Var[MA][Eh^2] :   2.41360550299754     +/-  0.2711125E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524099675805E+02
+   Average effective time step         [au] :  0.18560086123767E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.99976916041044E+00
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.048
+   Total time for block                          [sec] :       6.19
+   ________________________________________________________________
+   Block                                               n°        28
+ 
+       E_b      [Eh] :  -25.5807850754565     +/-  0.6408202E-03
+       Var_b  [Eh^2] :   2.41115597696485     +/-  0.1407226E-02
+ 
+       SPE      [Eh] :  -2.81769918604518     +/-  0.2720072E-03
+       Var[S] [Eh^2] :  0.434423837427400     +/-  0.2535434E-03
+ 
+       E[MA]    [Eh] :  -25.5807673318704     +/-  0.1211701E-03
+       Var[MA][Eh^2] :   2.41351798660132     +/-  0.2662169E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524106294403E+02
+   Average effective time step         [au] :  0.18560043921471E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.99649341842007E+00
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.048
+   Total time for block                          [sec] :      12.93
+   ________________________________________________________________
+   Block                                               n°        29
+ 
+       E_b      [Eh] :  -25.5795884196755     +/-  0.6408972E-03
+       Var_b  [Eh^2] :   2.41171414139613     +/-  0.1407558E-02
+ 
+       SPE      [Eh] :  -2.81762439505887     +/-  0.2719991E-03
+       Var[S] [Eh^2] :  0.434394290987885     +/-  0.2535272E-03
+ 
+       E[MA]    [Eh] :  -25.5807267245669     +/-  0.1190609E-03
+       Var[MA][Eh^2] :   2.41345588572725     +/-  0.2615795E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524065021906E+02
+   Average effective time step         [au] :  0.18560032746642E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.10093760612560E+01
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.048
+   Total time for block                          [sec] :       5.85
+   ________________________________________________________________
+   Block                                               n°        30
+ 
+       E_b      [Eh] :  -25.5799319202428     +/-  0.6412201E-03
+       Var_b  [Eh^2] :   2.41394864945202     +/-  0.1408920E-02
+ 
+       SPE      [Eh] :  -2.81764586384432     +/-  0.2719732E-03
+       Var[S] [Eh^2] :  0.434276178002213     +/-  0.2534686E-03
+ 
+       E[MA]    [Eh] :  -25.5807002483343     +/-  0.1170600E-03
+       Var[MA][Eh^2] :   2.41347230713991     +/-  0.2571845E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524039427918E+02
+   Average effective time step         [au] :  0.18559998477209E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.99592767460487E+00
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.048
+   Total time for block                          [sec] :       7.53
+   ________________________________________________________________
+   Block                                               n°        31
+ 
+       E_b      [Eh] :  -25.5790770782784     +/-  0.6411791E-03
+       Var_b  [Eh^2] :   2.41364004065332     +/-  0.1408739E-02
+ 
+       SPE      [Eh] :  -2.81759243622154     +/-  0.2720067E-03
+       Var[S] [Eh^2] :  0.434383214224597     +/-  0.2535311E-03
+ 
+       E[MA]    [Eh] :  -25.5806479480278     +/-  0.1151566E-03
+       Var[MA][Eh^2] :   2.41347778060626     +/-  0.2530029E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25523997665315E+02
+   Average effective time step         [au] :  0.18559918865063E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.99955273892154E+00
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.047
+   Total time for block                          [sec] :       5.68
+   ________________________________________________________________
+   Block                                               n°        32
+ 
+       E_b      [Eh] :  -25.5821656789146     +/-  0.6409651E-03
+       Var_b  [Eh^2] :   2.41211120179425     +/-  0.1407823E-02
+ 
+       SPE      [Eh] :  -2.81778547376131     +/-  0.2720724E-03
+       Var[S] [Eh^2] :  0.434607821496967     +/-  0.2536578E-03
+ 
+       E[MA]    [Eh] :  -25.5806954502649     +/-  0.1133419E-03
+       Var[MA][Eh^2] :   2.41343506613622     +/-  0.2490137E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524043791416E+02
+   Average effective time step         [au] :  0.18560023898194E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.10064563243777E+01
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.048
+   Total time for block                          [sec] :       5.69
+   ________________________________________________________________
+   Block                                               n°        33
+ 
+       E_b      [Eh] :  -25.5809550082000     +/-  0.6415823E-03
+       Var_b  [Eh^2] :   2.41631081650654     +/-  0.1410405E-02
+ 
+       SPE      [Eh] :  -2.81770980684165     +/-  0.2720105E-03
+       Var[S] [Eh^2] :  0.434329557057567     +/-  0.2535189E-03
+ 
+       E[MA]    [Eh] :  -25.5807033162961     +/-  0.1116136E-03
+       Var[MA][Eh^2] :   2.41352220667678     +/-  0.2452211E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524043938097E+02
+   Average effective time step         [au] :  0.18559975672070E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.99854980848355E+00
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.048
+   Total time for block                          [sec] :       5.42
+   ________________________________________________________________
+   Block                                               n°        34
+ 
+       E_b      [Eh] :  -25.5808267486743     +/-  0.6407010E-03
+       Var_b  [Eh^2] :   2.41037635140850     +/-  0.1406737E-02
+ 
+       SPE      [Eh] :  -2.81770179062129     +/-  0.2720300E-03
+       Var[S] [Eh^2] :  0.434517796111067     +/-  0.2535920E-03
+ 
+       E[MA]    [Eh] :  -25.5807069460604     +/-  0.1099576E-03
+       Var[MA][Eh^2] :   2.41342968517202     +/-  0.2415782E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524036386058E+02
+   Average effective time step         [au] :  0.18559983354988E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.10051342532363E+01
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.048
+   Total time for block                          [sec] :       5.46
+   ________________________________________________________________
+   Block                                               n°        35
+ 
+       E_b      [Eh] :  -25.5811507761563     +/-  0.6407743E-03
+       Var_b  [Eh^2] :   2.41070589978684     +/-  0.1406994E-02
+ 
+       SPE      [Eh] :  -2.81772204233892     +/-  0.2720714E-03
+       Var[S] [Eh^2] :  0.434610271737663     +/-  0.2536577E-03
+ 
+       E[MA]    [Eh] :  -25.5807196358808     +/-  0.1083736E-03
+       Var[MA][Eh^2] :   2.41335180147495     +/-  0.2380941E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524055035686E+02
+   Average effective time step         [au] :  0.18559962774505E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.10039212790450E+01
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.048
+   Total time for block                          [sec] :       5.55
+   ________________________________________________________________
+   Block                                               n°        36
+ 
+       E_b      [Eh] :  -25.5816913184682     +/-  0.6410554E-03
+       Var_b  [Eh^2] :   2.41272287761416     +/-  0.1408200E-02
+ 
+       SPE      [Eh] :  -2.81775582623341     +/-  0.2720242E-03
+       Var[S] [Eh^2] :  0.434441579209104     +/-  0.2535644E-03
+ 
+       E[MA]    [Eh] :  -25.5807466514054     +/-  0.1068574E-03
+       Var[MA][Eh^2] :   2.41333432970767     +/-  0.2347622E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524079427269E+02
+   Average effective time step         [au] :  0.18559984839047E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.99824229085806E+00
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.048
+   Total time for block                          [sec] :       6.04
+   ________________________________________________________________
+   Block                                               n°        37
+ 
+       E_b      [Eh] :  -25.5803041619709     +/-  0.6404841E-03
+       Var_b  [Eh^2] :   2.40878893525558     +/-  0.1405798E-02
+ 
+       SPE      [Eh] :  -2.81766912895233     +/-  0.2721495E-03
+       Var[S] [Eh^2] :  0.434907774507115     +/-  0.2538173E-03
+ 
+       E[MA]    [Eh] :  -25.5807346970752     +/-  0.1054005E-03
+       Var[MA][Eh^2] :   2.41321152502750     +/-  0.2315557E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524066742576E+02
+   Average effective time step         [au] :  0.18560059587352E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.99914701350274E+00
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.048
+   Total time for block                          [sec] :       5.50
+   ________________________________________________________________
+   Block                                               n°        38
+ 
+       E_b      [Eh] :  -25.5815960697033     +/-  0.6410561E-03
+       Var_b  [Eh^2] :   2.41268995970057     +/-  0.1408192E-02
+ 
+       SPE      [Eh] :  -2.81774987318560     +/-  0.2721027E-03
+       Var[S] [Eh^2] :  0.434685461216720     +/-  0.2537088E-03
+ 
+       E[MA]    [Eh] :  -25.5807573837947     +/-  0.1040041E-03
+       Var[MA][Eh^2] :   2.41319779631054     +/-  0.2284873E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524088507778E+02
+   Average effective time step         [au] :  0.18560115899913E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.10022094908991E+01
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.048
+   Total time for block                          [sec] :       5.65
+   ________________________________________________________________
+   Block                                               n°        39
+ 
+       E_b      [Eh] :  -25.5795872343019     +/-  0.6413221E-03
+       Var_b  [Eh^2] :   2.41457757459517     +/-  0.1409327E-02
+ 
+       SPE      [Eh] :  -2.81762432097302     +/-  0.2720806E-03
+       Var[S] [Eh^2] :  0.434594253063576     +/-  0.2536615E-03
+ 
+       E[MA]    [Eh] :  -25.5807274171413     +/-  0.1026629E-03
+       Var[MA][Eh^2] :   2.41323315503393     +/-  0.2255424E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524054780187E+02
+   Average effective time step         [au] :  0.18560102204988E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.99574004246581E+00
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.048
+   Total time for block                          [sec] :       5.49
+   ________________________________________________________________
+   Block                                               n°        40
+ 
+       E_b      [Eh] :  -25.5808310499272     +/-  0.6407492E-03
+       Var_b  [Eh^2] :   2.41073023551354     +/-  0.1406946E-02
+ 
+       SPE      [Eh] :  -2.81770205944959     +/-  0.2720381E-03
+       Var[S] [Eh^2] :  0.434542149660472     +/-  0.2536067E-03
+ 
+       E[MA]    [Eh] :  -25.5807300083865     +/-  0.1013700E-03
+       Var[MA][Eh^2] :   2.41317056176368     +/-  0.2226990E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524057559421E+02
+   Average effective time step         [au] :  0.18560085394645E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.10012770529400E+01
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.048
+   Total time for block                          [sec] :       5.82
+   ________________________________________________________________
+   Block                                               n°        41
+ 
+       E_b      [Eh] :  -25.5801053566967     +/-  0.6410403E-03
+       Var_b  [Eh^2] :   2.41271382740944     +/-  0.1408164E-02
+ 
+       SPE      [Eh] :  -2.81765670362269     +/-  0.2721013E-03
+       Var[S] [Eh^2] :  0.434706724155893     +/-  0.2537137E-03
+ 
+       E[MA]    [Eh] :  -25.5807147779296     +/-  0.1001258E-03
+       Var[MA][Eh^2] :   2.41315942478252     +/-  0.2199653E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524048099362E+02
+   Average effective time step         [au] :  0.18560107798277E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.10137652819594E+01
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.048
+   Total time for block                          [sec] :       6.18
+   ________________________________________________________________
+   Block                                               n°        42
+ 
+       E_b      [Eh] :  -25.5802837793289     +/-  0.6410350E-03
+       Var_b  [Eh^2] :   2.41257079698627     +/-  0.1408111E-02
+ 
+       SPE      [Eh] :  -2.81766785503720     +/-  0.2720546E-03
+       Var[S] [Eh^2] :  0.434538904195310     +/-  0.2536211E-03
+ 
+       E[MA]    [Eh] :  -25.5807045163902     +/-  0.9892636E-04
+       Var[MA][Eh^2] :   2.41314540482327     +/-  0.2173295E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524045644257E+02
+   Average effective time step         [au] :  0.18560127165009E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.99403656176085E+00
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.048
+   Total time for block                          [sec] :       5.41
+   ________________________________________________________________
+   Block                                               n°        43
+ 
+       E_b      [Eh] :  -25.5825643936662     +/-  0.6407942E-03
+       Var_b  [Eh^2] :   2.41090322006173     +/-  0.1407095E-02
+ 
+       SPE      [Eh] :  -2.81781039343328     +/-  0.2719440E-03
+       Var[S] [Eh^2] :  0.434211809322615     +/-  0.2534226E-03
+ 
+       E[MA]    [Eh] :  -25.5807478503309     +/-  0.9776815E-04
+       Var[MA][Eh^2] :   2.41309323251560     +/-  0.2147828E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524089215326E+02
+   Average effective time step         [au] :  0.18560111072869E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.99481701120622E+00
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.048
+   Total time for block                          [sec] :       6.01
+   ________________________________________________________________
+   Block                                               n°        44
+ 
+       E_b      [Eh] :  -25.5802535449835     +/-  0.6410491E-03
+       Var_b  [Eh^2] :   2.41279240506701     +/-  0.1408206E-02
+ 
+       SPE      [Eh] :  -2.81766596539062     +/-  0.2719669E-03
+       Var[S] [Eh^2] :  0.434279795249253     +/-  0.2534638E-03
+ 
+       E[MA]    [Eh] :  -25.5807366211318     +/-  0.9665056E-04
+       Var[MA][Eh^2] :   2.41308639466701     +/-  0.2123273E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524078201993E+02
+   Average effective time step         [au] :  0.18560158834242E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.10028427501317E+01
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.048
+   Total time for block                          [sec] :       5.45
+   ________________________________________________________________
+   Block                                               n°        45
+ 
+       E_b      [Eh] :  -25.5803229674756     +/-  0.6413813E-03
+       Var_b  [Eh^2] :   2.41506813062336     +/-  0.1409600E-02
+ 
+       SPE      [Eh] :  -2.81767030429637     +/-  0.2721060E-03
+       Var[S] [Eh^2] :  0.434683463492017     +/-  0.2537113E-03
+ 
+       E[MA]    [Eh] :  -25.5807274312712     +/-  0.9557154E-04
+       Var[MA][Eh^2] :   2.41313041611694     +/-  0.2099587E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524071689091E+02
+   Average effective time step         [au] :  0.18560181277273E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.99675331586463E+00
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.048
+   Total time for block                          [sec] :       5.48
+   ________________________________________________________________
+   Block                                               n°        46
+ 
+       E_b      [Eh] :  -25.5824096453685     +/-  0.6403518E-03
+       Var_b  [Eh^2] :   2.40782994505750     +/-  0.1405227E-02
+ 
+       SPE      [Eh] :  -2.81780072166468     +/-  0.2720926E-03
+       Var[S] [Eh^2] :  0.434732256567739     +/-  0.2537130E-03
+ 
+       E[MA]    [Eh] :  -25.5807640708727     +/-  0.9452457E-04
+       Var[MA][Eh^2] :   2.41301502013620     +/-  0.2076537E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524113803270E+02
+   Average effective time step         [au] :  0.18560239374735E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.99511078406498E+00
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.048
+   Total time for block                          [sec] :       5.70
+   ________________________________________________________________
+   Block                                               n°        47
+ 
+       E_b      [Eh] :  -25.5804740183544     +/-  0.6410757E-03
+       Var_b  [Eh^2] :   2.41283995662161     +/-  0.1408279E-02
+ 
+       SPE      [Eh] :  -2.81767974497630     +/-  0.2720066E-03
+       Var[S] [Eh^2] :  0.434378838978776     +/-  0.2535297E-03
+ 
+       E[MA]    [Eh] :  -25.5807579032771     +/-  0.9351352E-04
+       Var[MA][Eh^2] :   2.41301129064715     +/-  0.2054325E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524100470008E+02
+   Average effective time step         [au] :  0.18560235511117E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.99893781030566E+00
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.048
+   Total time for block                          [sec] :       5.58
+   ________________________________________________________________
+   Block                                               n°        48
+ 
+       E_b      [Eh] :  -25.5788705097988     +/-  0.6411887E-03
+       Var_b  [Eh^2] :   2.41372194577542     +/-  0.1408784E-02
+ 
+       SPE      [Eh] :  -2.81757952569157     +/-  0.2721307E-03
+       Var[S] [Eh^2] :  0.434781082039761     +/-  0.2537628E-03
+ 
+       E[MA]    [Eh] :  -25.5807186534813     +/-  0.9253457E-04
+       Var[MA][Eh^2] :   2.41302613325245     +/-  0.2032825E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524061721476E+02
+   Average effective time step         [au] :  0.18560281119714E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.10002738171502E+01
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.048
+   Total time for block                          [sec] :       5.57
+   ________________________________________________________________
+   Block                                               n°        49
+ 
+       E_b      [Eh] :  -25.5801401168867     +/-  0.6411243E-03
+       Var_b  [Eh^2] :   2.41322942891598     +/-  0.1408499E-02
+ 
+       SPE      [Eh] :  -2.81765887613457     +/-  0.2720492E-03
+       Var[S] [Eh^2] :  0.434519156312817     +/-  0.2536103E-03
+ 
+       E[MA]    [Eh] :  -25.5807068558220     +/-  0.9158555E-04
+       Var[MA][Eh^2] :   2.41303027721244     +/-  0.2011979E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524044463233E+02
+   Average effective time step         [au] :  0.18560313825363E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.10007096274854E+01
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.048
+   Total time for block                          [sec] :       5.56
+   ________________________________________________________________
+   Block                                               n°        50
+ 
+       E_b      [Eh] :  -25.5794653500987     +/-  0.6412272E-03
+       Var_b  [Eh^2] :   2.41383595862151     +/-  0.1408902E-02
+ 
+       SPE      [Eh] :  -2.81761670321032     +/-  0.2720664E-03
+       Var[S] [Eh^2] :  0.434543917285399     +/-  0.2536336E-03
+ 
+       E[MA]    [Eh] :  -25.5806820577831     +/-  0.9066543E-04
+       Var[MA][Eh^2] :   2.41304639198324     +/-  0.1991772E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524016553037E+02
+   Average effective time step         [au] :  0.18560339983164E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.99905284960242E+00
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.049
+   Total time for block                          [sec] :       5.42
+   ________________________________________________________________
+   Block                                               n°        51
+ 
+       E_b      [Eh] :  -25.5810399124791     +/-  0.6409308E-03
+       Var_b  [Eh^2] :   2.41188469396414     +/-  0.1407682E-02
+ 
+       SPE      [Eh] :  -2.81771511335909     +/-  0.2719784E-03
+       Var[S] [Eh^2] :  0.434313248857548     +/-  0.2534842E-03
+ 
+       E[MA]    [Eh] :  -25.5806890789193     +/-  0.8977169E-04
+       Var[MA][Eh^2] :   2.41302359378314     +/-  0.1972128E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524027370652E+02
+   Average effective time step         [au] :  0.18560350092534E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.99576494271600E+00
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.049
+   Total time for block                          [sec] :       5.70
+   ________________________________________________________________
+   Block                                               n°        52
+ 
+       E_b      [Eh] :  -25.5811913272881     +/-  0.6416434E-03
+       Var_b  [Eh^2] :   2.41676166908932     +/-  0.1410671E-02
+ 
+       SPE      [Eh] :  -2.81772457678465     +/-  0.2720607E-03
+       Var[S] [Eh^2] :  0.434488240090631     +/-  0.2536121E-03
+ 
+       E[MA]    [Eh] :  -25.5806987404900     +/-  0.8890576E-04
+       Var[MA][Eh^2] :   2.41309549862909     +/-  0.1953135E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524031699054E+02
+   Average effective time step         [au] :  0.18560351253331E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.10151100466368E+01
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.048
+   Total time for block                          [sec] :       5.67
+   ________________________________________________________________
+   Block                                               n°        53
+ 
+       E_b      [Eh] :  -25.5815231276824     +/-  0.6410059E-03
+       Var_b  [Eh^2] :   2.41237891539101     +/-  0.1407991E-02
+ 
+       SPE      [Eh] :  -2.81774531430929     +/-  0.2721406E-03
+       Var[S] [Eh^2] :  0.434818730554622     +/-  0.2537830E-03
+ 
+       E[MA]    [Eh] :  -25.5807143109401     +/-  0.8806277E-04
+       Var[MA][Eh^2] :   2.41308196913599     +/-  0.1934610E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524050205186E+02
+   Average effective time step         [au] :  0.18560360303532E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.99880499059854E+00
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.049
+   Total time for block                          [sec] :       5.61
+   ________________________________________________________________
+   Block                                               n°        54
+ 
+       E_b      [Eh] :  -25.5803094052173     +/-  0.6413387E-03
+       Var_b  [Eh^2] :   2.41480034658428     +/-  0.1409429E-02
+ 
+       SPE      [Eh] :  -2.81766945665523     +/-  0.2719854E-03
+       Var[S] [Eh^2] :  0.434307633615431     +/-  0.2534891E-03
+ 
+       E[MA]    [Eh] :  -25.5807068148562     +/-  0.8724415E-04
+       Var[MA][Eh^2] :   2.41311377709560     +/-  0.1916639E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524043731389E+02
+   Average effective time step         [au] :  0.18560358930291E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.99638747822892E+00
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.049
+   Total time for block                          [sec] :       5.51
+   ________________________________________________________________
+   Block                                               n°        55
+ 
+       E_b      [Eh] :  -25.5799618175398     +/-  0.6411488E-03
+       Var_b  [Eh^2] :   2.41340344033159     +/-  0.1408604E-02
+ 
+       SPE      [Eh] :  -2.81764773242538     +/-  0.2720456E-03
+       Var[S] [Eh^2] :  0.434506021063137     +/-  0.2536032E-03
+ 
+       E[MA]    [Eh] :  -25.5806932750931     +/-  0.8644747E-04
+       Var[MA][Eh^2] :   2.41311904394037     +/-  0.1899139E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524035127943E+02
+   Average effective time step         [au] :  0.18560371598377E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.10033729569177E+01
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.049
+   Total time for block                          [sec] :       5.45
+   ________________________________________________________________
+   Block                                               n°        56
+ 
+       E_b      [Eh] :  -25.5808123061337     +/-  0.6409625E-03
+       Var_b  [Eh^2] :   2.41197110976021     +/-  0.1407777E-02
+ 
+       SPE      [Eh] :  -2.81770088796250     +/-  0.2721019E-03
+       Var[S] [Eh^2] :  0.434680477308424     +/-  0.2537066E-03
+ 
+       E[MA]    [Eh] :  -25.5806954004680     +/-  0.8567179E-04
+       Var[MA][Eh^2] :   2.41309853975925     +/-  0.1882090E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524032503947E+02
+   Average effective time step         [au] :  0.18560389565715E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.10049108025010E+01
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.049
+   Total time for block                          [sec] :       5.79
+   ________________________________________________________________
+   Block                                               n°        57
+ 
+       E_b      [Eh] :  -25.5791821544924     +/-  0.6412422E-03
+       Var_b  [Eh^2] :   2.41391456989844     +/-  0.1408958E-02
+ 
+       SPE      [Eh] :  -2.81759900348492     +/-  0.2721071E-03
+       Var[S] [Eh^2] :  0.434667845259370     +/-  0.2537077E-03
+ 
+       E[MA]    [Eh] :  -25.5806688922424     +/-  0.8491727E-04
+       Var[MA][Eh^2] :   2.41311286674107     +/-  0.1865520E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524004484888E+02
+   Average effective time step         [au] :  0.18560383224157E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.99567255157526E+00
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.048
+   Total time for block                          [sec] :       6.18
+   ________________________________________________________________
+   Block                                               n°        58
+ 
+       E_b      [Eh] :  -25.5807268042929     +/-  0.6412450E-03
+       Var_b  [Eh^2] :   2.41411165947974     +/-  0.1409022E-02
+ 
+       SPE      [Eh] :  -2.81769554409745     +/-  0.2721392E-03
+       Var[S] [Eh^2] :  0.434802088104417     +/-  0.2537768E-03
+ 
+       E[MA]    [Eh] :  -25.5806698908994     +/-  0.8418234E-04
+       Var[MA][Eh^2] :   2.41313008325829     +/-  0.1849381E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524005806705E+02
+   Average effective time step         [au] :  0.18560420512307E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.10012827484065E+01
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.049
+   Total time for block                          [sec] :       5.38
+   ________________________________________________________________
+   Block                                               n°        59
+ 
+       E_b      [Eh] :  -25.5805069536371     +/-  0.6418206E-03
+       Var_b  [Eh^2] :   2.41794882258233     +/-  0.1411407E-02
+ 
+       SPE      [Eh] :  -2.81768180343146     +/-  0.2720232E-03
+       Var[S] [Eh^2] :  0.434341956438446     +/-  0.2535344E-03
+ 
+       E[MA]    [Eh] :  -25.5806671296336     +/-  0.8346744E-04
+       Var[MA][Eh^2] :   2.41321173894822     +/-  0.1833707E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25524001949556E+02
+   Average effective time step         [au] :  0.18560406094036E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.99691631005821E+00
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.048
+   Total time for block                          [sec] :       6.09
+   ________________________________________________________________
+   Block                                               n°        60
+ 
+       E_b      [Eh] :  -25.5798307544574     +/-  0.6411146E-03
+       Var_b  [Eh^2] :   2.41323596335791     +/-  0.1408480E-02
+ 
+       SPE      [Eh] :  -2.81763954098273     +/-  0.2720607E-03
+       Var[S] [Eh^2] :  0.434570389503650     +/-  0.2536360E-03
+ 
+       E[MA]    [Eh] :  -25.5806531999669     +/-  0.8276894E-04
+       Var[MA][Eh^2] :   2.41321214701298     +/-  0.1818361E-03
+ 
+   Number of branchings                     :                   500
+   Reference Energy                    [Eh] : -0.25523988157979E+02
+   Average effective time step         [au] :  0.18560416160158E+00
+   Total number of configurations           :                 12800
+   Rescaled total weight                    :  0.10082441493106E+01
+ 
+   Acceptance rate of Monte Carlo moves for elec.  [%] :     83.049
+   Total time for block                          [sec] :       5.48
+   ================================================================
+              DIFFUSION MONTE CARLO CALCULATION ENDED              
+                  ________________________________                 
+                 All well, farewell! See you soon!!                
+ 
+   Ending calculation on the 11.06.2023 at 13:42:18
+                  ________________________________                 
+                 List of final timings per MPI task                
+ 
+   Average Initialization time                   [sec] :       0.44
+   Average Sampling time                         [sec] :     253.62
+   Average VMC thermalization time               [sec] :       8.09
+   Average DMC thermalization time               [sec] :     156.40
+   Average DMC time                              [sec] :     342.58
+   Average Branching time                        [sec] :     113.48
+   Master CPU time                               [sec] :     507.54
+   Average total CPU time                        [sec] :     507.50
+   ================================================================
+                      FINALIZING MPI TASKS                         
+   ================================================================
