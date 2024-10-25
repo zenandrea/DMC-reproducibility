@@ -10,7 +10,7 @@ taumax = 0.1
 
 def x_axis( df, code ):
     x = np.array( df.index )
-    if code == 'TurboRVB_LRDMC':
+    if code == 'TurboRVB-LRDMC':
         xnew = x**2
     else:
         xnew = x
