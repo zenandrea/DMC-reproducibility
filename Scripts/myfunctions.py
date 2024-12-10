@@ -4,13 +4,11 @@ import os
 import re
 import pandas as pd
 import pyblock
-Hartree = 27.2114079527
 
-taumax = 0.1
-
-def x_axis( df, code ):
+def x_axis( df, discretization ):
     x = np.array( df.index )
-    if code == 'TurboRVB-LRDMC':
+    #if code == 'TurboRVB-LRDMC':
+    if discretization == 'a':
         xnew = x**2
     else:
         xnew = x
@@ -142,6 +140,9 @@ def gauss_tau (x, a, lista, tau):
 
 def read_mrcc_output(file_path):
     """From the MRCC output file: Read Energy"""
+
+    Hartree = 27.211386245988
+
     with open(file_path) as fd:
         lines = fd.readlines()
 
@@ -189,6 +190,8 @@ def read_mrcc_output(file_path):
     return results
 
 def get_cbs(hf_X, corr_X, hf_Y, corr_Y, X=2, Y=3, family='cc', convert_Hartree=False,shift=0.0,output=True):
+    Hartree = 27.211386245988
+    
     alpha_dict = {
         "def2_2_3": 10.39,
         "def2_3_4": 7.88,
