@@ -14,22 +14,22 @@ def x_axis( df, discretization ):
         xnew = x
     return xnew
 
-def EneDiff(a,b,c=627.503):
-    return (a-b)*c
+# def EneDiff(a,b,c=627.503):
+#     return (a-b)*c
 
 
-def EneDiffErr(a,b,c=627.503):
-    return c*(( a**2 + b**2 )**0.5)
+# def EneDiffErr(a,b,c=627.503):
+#     return c*(( a**2 + b**2 )**0.5)
 
 
-def EneDiffX(a,b,c=627.503):
-    return (a.ene-b.ene)*c, c*(( a.err**2 + b.err**2 )**0.5)
+# def EneDiffX(a,b,c=627.503):
+#     return (a.ene-b.ene)*c, c*(( a.err**2 + b.err**2 )**0.5)
 
 
-def EneDiff_AA(aa,a,c=627.503):
-    ene = c*( aa.ene - 2*a.ene )
-    err = c*(( aa.err**2 + 4* a.err**2 )**0.5 )
-    return ene, err
+# def EneDiff_AA(aa,a,c=627.503):
+#     ene = c*( aa.ene - 2*a.ene )
+#     err = c*(( aa.err**2 + 4* a.err**2 )**0.5 )
+#     return ene, err
 
 
 def gauss (x, a, lista, method, dist_info = False):
@@ -71,10 +71,10 @@ def mean_codes(a,lista,method):
 
     error2 = 0
 
-
     for i in lista:
 
-        error2 += (a[i][method][1]**2 + a[i][method][0]**2) - energy**2
+        # error2 += (a[i][method][1]**2 + a[i][method][0]**2) - energy**2
+        error2 += a[i][method][1]**2 + a[i][method][0]**2 - energy**2
     
     error = np.sqrt(error2/len(lista))
     
