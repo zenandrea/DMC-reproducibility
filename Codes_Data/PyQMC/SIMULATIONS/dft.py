@@ -3,15 +3,24 @@ import numpy as np
 from numpy import array
 from pyscf import df, scf, dft
 from pyscf import gto 
-from pyscf.pbc.tools.pyscf_ase import atoms_from_ase
 import ase.io
 import os
+
+def ase_atoms_to_pyscf(ase_atoms):
+		'''Convert ASE atoms to PySCF atom.
+
+		Note: ASE atoms always use A.
+		'''
+#return [[ase_atoms.get_chemical_symbols(), ase_atoms.get_positions()] for i, atom in enumerate(ase_atoms)]
+		return [ [ase_atoms.get_chemical_symbols()[i], ase_atoms.get_positions()[i]] for i in range(len(ase_atoms.get_positions()))]
+
+
 
 def run_dft(xyzfile, directory):
     mol = gto.Mole()
     atoms = ase.io.read(xyzfile)
     mol.verbose  = 5
-    mol.atom     = atoms_from_ase(atoms)
+    mol.atom     = ase_atoms_to_pyscf(atoms)
     mol.basis    = 'ccecp-ccpvtz'
     mol.unit     = 'A'
     mol.ecp      = 'ccecp'
