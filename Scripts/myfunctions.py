@@ -32,6 +32,88 @@ def x_axis( df, discretization ):
 #     return ene, err
 
 
+
+
+
+
+################################################################################
+
+def mean_codes(a,lista,method):
+    
+    energy = 0
+    for i in lista:
+        energy += a[i][method][0]
+    energy /= len(lista)
+
+    error2 = 0
+    for i in lista:
+        error2 += a[i][method][1]**2 + a[i][method][0]**2 - energy**2
+    error = np.sqrt(error2/len(lista))
+    
+    return energy, error
+
+
+################################################################################
+
+### old functions
+
+# def mean_codes(a,lista,method):
+  
+#     energy = 0
+
+#     for i in lista:
+#         energy += a[i][method][0]
+#     energy /= len(lista)
+
+#     error2 = 0
+
+#     for i in lista:
+
+#         # error2 += (a[i][method][1]**2 + a[i][method][0]**2) - energy**2
+#         error2 += a[i][method][1]**2 + a[i][method][0]**2 - energy**2
+    
+#     error = np.sqrt(error2/len(lista))
+    
+#     return energy, error
+
+# def mean_codes_unweighted(a,lista,method):
+#     energy = 0
+#     norm = 0
+#     error = 0
+#     error2 = 0
+    
+#     for i in lista:
+#         energy += a[i][method][0]
+#         error2 += a[i][method][1]**2
+    
+#     energy /= len(lista)
+#     error = np.sqrt(error2/len(lista))
+    
+#     return energy, error
+
+# def mean_codes_tot_ene(a,lista,method,syslabel='mw'):
+#     energy = 0
+#     norm = 0
+#     error = 0
+    
+#     for i in lista:
+#         energy += a[i][method][syslabel][0] * (1/a[i][method][syslabel][1]**2)
+#         norm += (1/a[i][method][syslabel][1]**2)
+    
+#     energy /= norm
+#     #error = np.sqrt(1/norm)
+    
+#     for i in lista:
+#         error += (a[i][method][syslabel][0]-energy)**2 / (len(lista)-1)
+    
+#     error = np.sqrt(error)
+    
+#     return energy, error
+
+
+################################################################################
+
+
 def gauss (x, a, lista, method, dist_info = False):
     
     # a is the dictionary
@@ -60,59 +142,6 @@ def gauss (x, a, lista, method, dist_info = False):
         return gauss, energy, error
     else:
         return gauss
-
-def mean_codes(a,lista,method):
-    
-    energy = 0
-
-    for i in lista:
-        energy += a[i][method][0]
-    energy /= len(lista)
-
-    error2 = 0
-
-    for i in lista:
-
-        # error2 += (a[i][method][1]**2 + a[i][method][0]**2) - energy**2
-        error2 += a[i][method][1]**2 + a[i][method][0]**2 - energy**2
-    
-    error = np.sqrt(error2/len(lista))
-    
-    return energy, error
-
-def mean_codes_unweighted(a,lista,method):
-    energy = 0
-    norm = 0
-    error = 0
-    error2 = 0
-    
-    for i in lista:
-        energy += a[i][method][0]
-        error2 += a[i][method][1]**2
-    
-    energy /= len(lista)
-    error = np.sqrt(error2/len(lista))
-    
-    return energy, error
-
-def mean_codes_tot_ene(a,lista,method,syslabel='mw'):
-    energy = 0
-    norm = 0
-    error = 0
-    
-    for i in lista:
-        energy += a[i][method][syslabel][0] * (1/a[i][method][syslabel][1]**2)
-        norm += (1/a[i][method][syslabel][1]**2)
-    
-    energy /= norm
-    #error = np.sqrt(1/norm)
-    
-    for i in lista:
-        error += (a[i][method][syslabel][0]-energy)**2 / (len(lista)-1)
-    
-    error = np.sqrt(error)
-    
-    return energy, error
 
 
 def gauss_tau (x, a, lista, tau):
