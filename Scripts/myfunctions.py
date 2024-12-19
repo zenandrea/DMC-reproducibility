@@ -53,6 +53,21 @@ def mean_codes(a,lista,method):
     return energy, error
 
 
+
+def mean_codes_tot_ene(a,lista,method,syslabel='mw'):
+
+    energy = 0
+    for i in lista:
+        energy += a[i][method][syslabel][0]
+    energy /= len(lista)
+    
+    error2 = 0
+    for i in lista:
+        error2 += a[i][method][syslabel][1]**2 + a[i][method][syslabel][0]**2 - energy**2
+    error = np.sqrt(error2/len(lista))
+
+    return energy, error
+
 ################################################################################
 
 ### old functions
